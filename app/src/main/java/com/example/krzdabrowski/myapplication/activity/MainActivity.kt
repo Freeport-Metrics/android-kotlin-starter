@@ -2,15 +2,20 @@ package com.example.krzdabrowski.myapplication.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.krzdabrowski.myapplication.R
+import com.example.krzdabrowski.myapplication.adapter.FlightAdapter
 import com.example.krzdabrowski.myapplication.model.Model
 import com.example.krzdabrowski.myapplication.retrofit.SpaceXLaunchService
+import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
+
+    val flights: ArrayList<Model.Flight> = ArrayList()
 
     private val service by lazy {
         SpaceXLaunchService.create()
@@ -20,6 +25,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         Timber.plant(Timber.DebugTree())
+
+        rv_flights.layoutManager = LinearLayoutManager(this)
+        rv_flights.adapter = FlightAdapter(this, flights)
 
         downloadDataFromApi()
     }
@@ -31,7 +39,8 @@ class MainActivity : AppCompatActivity() {
                 val data = response.body()
                 Timber.d("$data")
                 if (data != null) {
-                    Timber.d("First mission name is: ${data[0].missionName}")
+                    flights.addAll(data)
+                    rv_flights.adapter?.notifyItemRangeInserted(0, flights.size)
                 }
             }
 
