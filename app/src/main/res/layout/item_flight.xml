@@ -7,14 +7,14 @@
               android:layout_margin="8dp">
 
     <TextView
-            android:id="@+id/tv_id"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:text="Flight no: #95" />
-    <TextView
-            android:id="@+id/tv_details"
-            android:layout_width="match_parent"
+            android:id="@+id/tv_mission_name"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            tools:text="Mission name: ABC-81" />
+            tools:text="CRS-17" />
+    <TextView
+            android:id="@+id/tv_launch_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="2019-04-26" />
 </LinearLayout>

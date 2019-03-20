@@ -3,14 +3,13 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/linearLayout"
         android:animateLayoutChanges="true"
+        android:layout_margin="@dimen/margin_tiny"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="16dp">
+        android:layout_height="match_parent">
 
     <Button
-            android:text="Rockets"
+            android:text="@string/button_rockets"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/btn_rockets"
@@ -20,14 +19,14 @@
             app:layout_constraintTop_toTopOf="parent" />
     <Button
             android:id="@+id/btn_next_launches"
-            android:text="Next Launches"
+            android:text="@string/button_next_launches"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toEndOf="@+id/btn_rockets"
             app:layout_constraintEnd_toStartOf="@+id/btn_ships"
             app:layout_constraintBaseline_toBaselineOf="@+id/btn_rockets"/>
     <Button
-            android:text="Ships"
+            android:text="@string/button_ships"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/btn_ships"
@@ -38,7 +37,7 @@
             android:id="@+id/rv_generic"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_margin="16dp"
+            android:layout_margin="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -2,6 +2,7 @@ package com.example.krzdabrowski.myapplication.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.krzdabrowski.myapplication.R
 import com.example.krzdabrowski.myapplication.adapter.GenericAdapter
@@ -27,6 +28,7 @@ class MainActivity : AppCompatActivity() {
         Timber.plant(Timber.DebugTree())
 
         rv_generic.layoutManager = LinearLayoutManager(this)
+        rv_generic.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
 
         btn_rockets.setOnClickListener { downloadRockets() }
         btn_next_launches.setOnClickListener { downloadNextFlights() }
