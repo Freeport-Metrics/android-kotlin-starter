@@ -2,7 +2,7 @@ package com.example.krzdabrowski.myapplication.retrofit
 
 import com.example.krzdabrowski.myapplication.model.Flight
 import com.example.krzdabrowski.myapplication.model.Rocket
-import com.example.krzdabrowski.myapplication.model.Ship
+import com.example.krzdabrowski.myapplication.model.Event
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -14,10 +14,10 @@ interface SpaceXLaunchService {
     fun getRockets(): Call<List<Rocket>>
 
     @GET("launches/upcoming")
-    fun getUpcomingLaunches(): Call<List<Flight>>
+    fun getNextFlights(): Call<List<Flight>>
 
-    @GET("ships")
-    fun getShips(): Call<List<Ship>>
+    @GET("history")
+    fun getPastEvents(): Call<List<Event>>
 
     companion object {
         fun create(): SpaceXLaunchService {

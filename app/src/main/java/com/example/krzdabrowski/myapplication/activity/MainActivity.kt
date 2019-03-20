@@ -8,7 +8,7 @@ import com.example.krzdabrowski.myapplication.R
 import com.example.krzdabrowski.myapplication.adapter.GenericAdapter
 import com.example.krzdabrowski.myapplication.model.Flight
 import com.example.krzdabrowski.myapplication.model.Rocket
-import com.example.krzdabrowski.myapplication.model.Ship
+import com.example.krzdabrowski.myapplication.model.Event
 import com.example.krzdabrowski.myapplication.retrofit.SpaceXLaunchService
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
 
         btn_rockets.setOnClickListener { downloadRockets() }
         btn_next_launches.setOnClickListener { downloadNextFlights() }
-        btn_ships.setOnClickListener { downloadShips() }
+        btn_ships.setOnClickListener { downloadPastEvents() }
     }
 
     private fun downloadRockets() {
@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun downloadNextFlights() {
-        val call = service.getUpcomingLaunches()
+        val call = service.getNextFlights()
         call.enqueue(object : Callback<List<Flight>> {
             override fun onResponse(call: Call<List<Flight>>, response: Response<List<Flight>>) {
                 populateAdapter(response)
@@ -61,14 +61,14 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    private fun downloadShips() {
-        val call = service.getShips()
-        call.enqueue(object : Callback<List<Ship>> {
-            override fun onResponse(call: Call<List<Ship>>, response: Response<List<Ship>>) {
+    private fun downloadPastEvents() {
+        val call = service.getPastEvents()
+        call.enqueue(object : Callback<List<Event>> {
+            override fun onResponse(call: Call<List<Event>>, response: Response<List<Event>>) {
                 populateAdapter(response)
             }
 
-            override fun onFailure(call: Call<List<Ship>>, t: Throwable) {
+            override fun onFailure(call: Call<List<Event>>, t: Throwable) {
                 Timber.d("Error occurred: $t")
             }
         })

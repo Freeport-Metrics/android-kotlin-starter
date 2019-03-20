@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">My Application</string>
     <string name="button_rockets">Rockets</string>
-    <string name="button_next_launches">Next Launches</string>
-    <string name="button_ships">Ships</string>
+    <string name="button_next_flights">Next flights</string>
+    <string name="button_events">Past events</string>
 </resources>

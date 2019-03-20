@@ -23,26 +23,26 @@
             tools:text="Falcon Heavy"/>
 
     <TextView
-            android:id="@+id/tv_cost_per_launch"
+            android:id="@+id/tv_rocket_cost_per_launch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="1000000"
             android:layout_marginTop="8dp"/>
 
     <TextView
-            android:id="@+id/tv_first_flight"
+            android:id="@+id/tv_rocket_first_flight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="2000-01-01" android:layout_marginTop="8dp"/>
 
     <TextView
-            android:id="@+id/tv_height"
+            android:id="@+id/tv_rocket_height"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="1000" android:layout_marginTop="8dp"/>
 
     <TextView
-            android:id="@+id/tv_weight"
+            android:id="@+id/tv_rocket_weight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="10000" android:layout_marginTop="8dp"/>

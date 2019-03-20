@@ -19,14 +19,14 @@
             app:layout_constraintTop_toTopOf="parent" />
     <Button
             android:id="@+id/btn_next_launches"
-            android:text="@string/button_next_launches"
+            android:text="@string/button_next_flights"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toEndOf="@+id/btn_rockets"
             app:layout_constraintEnd_toStartOf="@+id/btn_ships"
             app:layout_constraintBaseline_toBaselineOf="@+id/btn_rockets"/>
     <Button
-            android:text="@string/button_ships"
+            android:text="@string/button_events"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/btn_ships"

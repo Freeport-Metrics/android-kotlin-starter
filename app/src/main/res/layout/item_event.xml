@@ -7,14 +7,19 @@
               android:layout_margin="8dp">
 
     <TextView
-            android:id="@+id/tv_ship_name"
+            android:id="@+id/tv_event_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            tools:text="American Champion" />
+            tools:text="Falcon 1 Makes History" />
     <TextView
-            android:id="@+id/tv_year_built"
+            android:id="@+id/tv_event_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="1976" />
+            tools:text="2008-09-28" />
+    <TextView
+            android:id="@+id/tv_event_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Falcon 1 becomes the first privately developed liquid fuel rocket to reach Earth orbit." />
 </LinearLayout>
