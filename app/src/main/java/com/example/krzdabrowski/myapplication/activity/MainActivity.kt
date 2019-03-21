@@ -6,20 +6,17 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.krzdabrowski.myapplication.R
 import com.example.krzdabrowski.myapplication.adapter.GenericAdapter
-import com.example.krzdabrowski.myapplication.model.Flight
-import com.example.krzdabrowski.myapplication.model.Rocket
-import com.example.krzdabrowski.myapplication.model.Event
-import com.example.krzdabrowski.myapplication.retrofit.SpaceXLaunchService
+import com.example.krzdabrowski.myapplication.retrofit.SpaceXService
 import kotlinx.android.synthetic.main.activity_main.*
-import retrofit2.Call
-import retrofit2.Callback
+import kotlinx.coroutines.*
+import retrofit2.HttpException
 import retrofit2.Response
 import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
 
     private val service by lazy {
-        SpaceXLaunchService.create()
+        SpaceXService.create()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,42 +33,63 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun downloadRockets() {
-        val call = service.getRockets()
-        call.enqueue(object : Callback<List<Rocket>> {
-            override fun onResponse(call: Call<List<Rocket>>, response: Response<List<Rocket>>) {
-                populateAdapter(response)
+        CoroutineScope(Dispatchers.IO).launch {
+            val request = service.getRocketsAsync()
+            withContext(Dispatchers.Main) {
+                try {
+                    val response = request.await()
+                    if (response.isSuccessful) {
+                        populateAdapter(response)
+                    } else {
+                        Timber.d("Error occurred with code ${response.code()}")
+                    }
+                } catch (e: HttpException) {
+                    Timber.d("Error: ${e.message()}")
+                } catch (e: Throwable) {
+                    Timber.d("Error: ${e.message}")
+                }
             }
-
-            override fun onFailure(call: Call<List<Rocket>>, t: Throwable) {
-                Timber.d("Error occurred: $t")
-            }
-        })
+        }
     }
 
     private fun downloadNextFlights() {
-        val call = service.getNextFlights()
-        call.enqueue(object : Callback<List<Flight>> {
-            override fun onResponse(call: Call<List<Flight>>, response: Response<List<Flight>>) {
-                populateAdapter(response)
+        CoroutineScope(Dispatchers.IO).launch {
+            val request = service.getNextFlightsAsync()
+            withContext(Dispatchers.Main) {
+                try {
+                    val response = request.await()
+                    if (response.isSuccessful) {
+                        populateAdapter(response)
+                    } else {
+                        Timber.d("Error occurred with code ${response.code()}")
+                    }
+                } catch (e: HttpException) {
+                    Timber.d("Error: ${e.message()}")
+                } catch (e: Throwable) {
+                    Timber.d("Error: ${e.message}")
+                }
             }
-
-            override fun onFailure(call: Call<List<Flight>>, t: Throwable) {
-                Timber.d("Error occurred: $t")
-            }
-        })
+        }
     }
 
     private fun downloadPastEvents() {
-        val call = service.getPastEvents()
-        call.enqueue(object : Callback<List<Event>> {
-            override fun onResponse(call: Call<List<Event>>, response: Response<List<Event>>) {
-                populateAdapter(response)
+        CoroutineScope(Dispatchers.IO).launch {
+            val request = service.getPastEventsAsync()
+            withContext(Dispatchers.Main) {
+                try {
+                    val response = request.await()
+                    if (response.isSuccessful) {
+                        populateAdapter(response)
+                    } else {
+                        Timber.d("Error occurred with code ${response.code()}")
+                    }
+                } catch (e: HttpException) {
+                    Timber.d("Error: ${e.message()}")
+                } catch (e: Throwable) {
+                    Timber.d("Error: ${e.message}")
+                }
             }
-
-            override fun onFailure(call: Call<List<Event>>, t: Throwable) {
-                Timber.d("Error occurred: $t")
-            }
-        })
+        }
     }
 
     private fun <T> populateAdapter(response: Response<List<T>>) {
