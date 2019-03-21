@@ -1,6 +1,9 @@
 package com.example.krzdabrowski.myapplication.adapter
 
+import android.content.Intent
 import android.view.View
+import android.widget.Toast
+import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
 import com.example.krzdabrowski.myapplication.R
 import com.example.krzdabrowski.myapplication.helper.epochToDate
@@ -20,6 +23,16 @@ class RocketViewHolder(private val view: View) : RecyclerView.ViewHolder(view), 
         view.tv_rocket_height.text = view.context.getString(R.string.rocket_height, data.height["meters"])
         view.tv_rocket_weight.text = view.context.getString(R.string.rocket_weight, data.weight["kg"]?.div(1_000))
         Picasso.get().load(data.image[0]).into(view.iv_rocket)
+
+        view.setOnClickListener {
+            if (data.url != null) {
+                val intent = Intent(Intent.ACTION_VIEW)
+                intent.data = data.url.toUri()
+                view.context.startActivity(intent)
+            } else {
+                Toast.makeText(view.context, view.context.getString(R.string.toast_no_link), Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 }
 
@@ -27,6 +40,16 @@ class FlightViewHolder(private val view: View) : RecyclerView.ViewHolder(view), 
     override fun bind(data: Flight) {
         view.tv_flight_name.text = view.context.getString(R.string.flight_name, data.name)
         view.tv_flight_date.text = view.context.getString(R.string.flight_event_date, epochToDate(data.launchDate))
+
+        view.setOnClickListener {
+            if (data.urls["reddit_campaign"] != null) {
+                val intent = Intent(Intent.ACTION_VIEW)
+                intent.data = data.urls["reddit_campaign"].toString().toUri()
+                view.context.startActivity(intent)
+            } else {
+                Toast.makeText(view.context, view.context.getString(R.string.toast_no_campaign), Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 }
 
@@ -35,5 +58,15 @@ class EventViewHolder(private val view: View) : RecyclerView.ViewHolder(view), G
         view.tv_event_name.text = data.name
         view.tv_event_date.text = view.context.getString(R.string.flight_event_date, epochToDate(data.date))
         view.tv_event_info.text = data.info
+
+        view.setOnClickListener {
+            if (data.urls["article"] != null) {
+                val intent = Intent(Intent.ACTION_VIEW)
+                intent.data = data.urls["article"].toString().toUri()
+                view.context.startActivity(intent)
+            } else {
+                Toast.makeText(view.context, view.context.getString(R.string.toast_no_article), Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 }

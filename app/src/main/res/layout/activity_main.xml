@@ -1,45 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        android:animateLayoutChanges="true"
-        android:layout_margin="@dimen/margin_tiny"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:id="@+id/my_layoutt"
+        style="@style/RootLayout">
 
     <Button
-            android:text="@string/button_rockets"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/btn_rockets"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btn_next_launches"
-            app:layout_constraintHorizontal_chainStyle="spread"
-            app:layout_constraintTop_toTopOf="parent" />
+            style="@style/Button.Rockets"
+            android:text="@string/button_rockets"
+            tools:ignore="MissingConstraints"/>
+
     <Button
-            android:id="@+id/btn_next_launches"
+            android:id="@+id/btn_next_flights"
+            style="@style/Button.NextFlights"
             android:text="@string/button_next_flights"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toEndOf="@+id/btn_rockets"
-            app:layout_constraintEnd_toStartOf="@+id/btn_ships"
-            app:layout_constraintBaseline_toBaselineOf="@+id/btn_rockets"/>
+            tools:ignore="MissingConstraints"/>
+
     <Button
-            android:text="@string/button_events"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/btn_ships"
-            app:layout_constraintStart_toEndOf="@+id/btn_next_launches"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBaseline_toBaselineOf="@+id/btn_next_launches" />
+            style="@style/Button.Ships"
+            android:text="@string/button_events"
+            tools:ignore="MissingConstraints"/>
+
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_generic"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_margin="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_rockets"/>
+            style="@style/RecyclerView"
+            tools:ignore="MissingConstraints"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

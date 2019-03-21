@@ -1,10 +1,12 @@
 <resources>
     <string name="app_name">My Application</string>
 
+    <!-- Buttons -->
     <string name="button_rockets">Rockets</string>
     <string name="button_next_flights">Next flights</string>
     <string name="button_events">Past events</string>
 
+    <!-- Info -->
     <string name="rocket_name">"Cost per launch: \$%1$dm"</string>
     <string name="rocket_first_flight">"First flight: %1$s"</string>
     <string name="rocket_height">"Height: %1$.0fm"</string>
@@ -13,4 +15,9 @@
 
     <string name="flight_name">"Mission name: %1$s"</string>
     <string name="flight_event_date">"Date: %1$s"</string>
+
+    <!-- Toasts -->
+    <string name="toast_no_link">Couldn\'t find more info</string>
+    <string name="toast_no_campaign">Couldn\'t find link to campaign yet</string>
+    <string name="toast_no_article">Couldn\'t find link to article</string>
 </resources>

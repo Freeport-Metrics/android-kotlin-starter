@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         rv_generic.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
 
         btn_rockets.setOnClickListener { downloadRockets() }
-        btn_next_launches.setOnClickListener { downloadNextFlights() }
+        btn_next_flights.setOnClickListener { downloadNextFlights() }
         btn_ships.setOnClickListener { downloadPastEvents() }
     }
 

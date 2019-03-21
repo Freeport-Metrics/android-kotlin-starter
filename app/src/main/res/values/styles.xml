@@ -7,6 +7,48 @@
     </style>
 
 
+    <style name="RootLayout">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_margin">@dimen/margin_tiny</item>
+        <item name="android:animateLayoutChanges">true</item>
+    </style>
+
+    <style name="Button">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+
+    <style name="Button.Rockets">
+        <item name="layout_constraintTop_toTopOf">parent</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintEnd_toStartOf">@id/btn_next_flights</item>
+        <item name="layout_constraintHorizontal_chainStyle">spread</item>
+    </style>
+
+    <style name="Button.NextFlights">
+        <item name="layout_constraintStart_toEndOf">@id/btn_rockets</item>
+        <item name="layout_constraintEnd_toStartOf">@id/btn_ships</item>
+        <item name="layout_constraintBaseline_toBaselineOf">@id/btn_rockets</item>
+    </style>
+
+    <style name="Button.Ships">
+        <item name="layout_constraintStart_toEndOf">@id/btn_next_flights</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="layout_constraintBaseline_toBaselineOf">@id/btn_next_flights</item>
+    </style>
+
+    <style name="RecyclerView">
+        <item name="android:layout_width">@dimen/dimen_0</item>
+        <item name="android:layout_height">@dimen/dimen_0</item>
+        <item name="android:layout_margin">@dimen/margin_tiny</item>
+        <item name="layout_constraintTop_toBottomOf">@id/btn_rockets</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="layout_constraintBottom_toBottomOf">parent</item>
+    </style>
+
+
     <style name="Item">
         <item name="android:layout_height">wrap_content</item>
     </style>
@@ -25,7 +67,6 @@
         <item name="android:orientation">vertical</item>
     </style>
 
-
     <style name="Item.Layout">
         <item name="android:layout_width">@dimen/dimen_0</item>
         <item name="android:layout_weight">1</item>
@@ -37,7 +78,6 @@
     </style>
 
     <style name="Item.Layout.Image"/>
-
 
     <style name="Item.Title">
         <item name="android:layout_width">wrap_content</item>
