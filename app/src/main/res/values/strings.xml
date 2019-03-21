@@ -9,6 +9,7 @@
     <string name="rocket_first_flight">"First flight: %1$s"</string>
     <string name="rocket_height">"Height: %1$.0fm"</string>
     <string name="rocket_weight">"Weight: %1$dt"</string>
+    <string name="rocket_desc_image">Rocket image</string>
 
     <string name="flight_name">"Mission name: %1$s"</string>
     <string name="flight_event_date">"Date: %1$s"</string>

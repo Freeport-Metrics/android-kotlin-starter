@@ -1,25 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:tools="http://schemas.android.com/tools"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_margin="8dp">
+              style="@style/Item.RootLayout.NoImage">
 
     <TextView
             android:id="@+id/tv_event_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            tools:text="Falcon 1 Makes History" />
+            style="@style/Item.Title"
+            tools:text="Falcon 1 Makes History"/>
     <TextView
             android:id="@+id/tv_event_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="2008-09-28" />
+            style="@style/Item.Info"
+            tools:text="2008-09-28"/>
     <TextView
             android:id="@+id/tv_event_info"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="Falcon 1 becomes the first privately developed liquid fuel rocket to reach Earth orbit." />
+            style="@style/Item.Info"
+            tools:text="Falcon 1 becomes the first privately developed liquid fuel rocket to reach Earth orbit."/>
 </LinearLayout>

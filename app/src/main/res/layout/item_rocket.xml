@@ -1,58 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        android:weightSum="2"
-        android:orientation="horizontal">
+        style="@style/Item.RootLayout.WithImage">
 
-<LinearLayout
-        android:orientation="vertical"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:layout_margin="8dp">
+    <LinearLayout
+            style="@style/Item.Layout.Info">
 
-    <TextView
-            android:id="@+id/tv_rocket_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            tools:text="Falcon Heavy"/>
+        <TextView
+                android:id="@+id/tv_rocket_name"
+                style="@style/Item.Title"
+                tools:text="Falcon Heavy"/>
 
-    <TextView
-            android:id="@+id/tv_rocket_cost_per_launch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="1000000"
-            android:layout_marginTop="8dp"/>
+        <TextView
+                android:id="@+id/tv_rocket_cost_per_launch"
+                style="@style/Item.Info"
+                tools:text="1000000"/>
 
-    <TextView
-            android:id="@+id/tv_rocket_first_flight"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="2000-01-01" android:layout_marginTop="8dp"/>
+        <TextView
+                android:id="@+id/tv_rocket_first_flight"
+                style="@style/Item.Info"
+                tools:text="2000-01-01"/>
 
-    <TextView
-            android:id="@+id/tv_rocket_height"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="1000" android:layout_marginTop="8dp"/>
+        <TextView
+                android:id="@+id/tv_rocket_height"
+                style="@style/Item.Info"
+                tools:text="1000"/>
 
-    <TextView
-            android:id="@+id/tv_rocket_weight"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="10000" android:layout_marginTop="8dp"/>
-</LinearLayout>
+        <TextView
+                android:id="@+id/tv_rocket_weight"
+                style="@style/Item.Info"
+                tools:text="10000"/>
+    </LinearLayout>
 
     <ImageView
             android:id="@+id/iv_rocket"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            style="@style/Item.Layout.Image"
+            android:contentDescription="@string/rocket_desc_image"
             tools:src="@tools:sample/avatars"/>
 
 </LinearLayout>

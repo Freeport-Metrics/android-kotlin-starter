@@ -1,11 +1,53 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+
+    <style name="Item">
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="Item.RootLayout">
+        <item name="android:layout_width">match_parent</item>
+    </style>
+
+    <style name="Item.RootLayout.WithImage">
+        <item name="android:orientation">horizontal</item>
+        <item name="android:weightSum">2</item>
+    </style>
+
+    <style name="Item.RootLayout.NoImage">
+        <item name="android:layout_margin">@dimen/margin_tiny</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+
+    <style name="Item.Layout">
+        <item name="android:layout_width">@dimen/dimen_0</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
+    <style name="Item.Layout.Info">
+        <item name="android:layout_margin">@dimen/margin_tiny</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="Item.Layout.Image"/>
+
+
+    <style name="Item.Title">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/margin_tiny</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Item.Info">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/margin_tiny</item>
     </style>
 
 </resources>
