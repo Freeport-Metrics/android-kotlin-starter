@@ -22,7 +22,7 @@ interface SpaceXService {
     fun getPastEventsAsync(): Deferred<Response<List<Event>>>
 
     companion object {
-        const val BASE_URL = "https://api.spacexdata.com/v3/"
+        private const val BASE_URL = "https://api.spacexdata.com/v3/"
 
         fun create(): SpaceXService {
             return Retrofit.Builder()

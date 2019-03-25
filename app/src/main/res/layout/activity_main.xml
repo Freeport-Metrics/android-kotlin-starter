@@ -18,8 +18,8 @@
             tools:ignore="MissingConstraints"/>
 
     <Button
-            android:id="@+id/btn_ships"
-            style="@style/Button.Ships"
+            android:id="@+id/btn_events"
+            style="@style/Button.Events"
             android:text="@string/button_events"
             tools:ignore="MissingConstraints"/>
 

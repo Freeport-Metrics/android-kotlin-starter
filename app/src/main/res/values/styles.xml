@@ -28,11 +28,11 @@
 
     <style name="Button.NextFlights">
         <item name="layout_constraintStart_toEndOf">@id/btn_rockets</item>
-        <item name="layout_constraintEnd_toStartOf">@id/btn_ships</item>
+        <item name="layout_constraintEnd_toStartOf">@id/btn_events</item>
         <item name="layout_constraintBaseline_toBaselineOf">@id/btn_rockets</item>
     </style>
 
-    <style name="Button.Ships">
+    <style name="Button.Events">
         <item name="layout_constraintStart_toEndOf">@id/btn_next_flights</item>
         <item name="layout_constraintEnd_toEndOf">parent</item>
         <item name="layout_constraintBaseline_toBaselineOf">@id/btn_next_flights</item>

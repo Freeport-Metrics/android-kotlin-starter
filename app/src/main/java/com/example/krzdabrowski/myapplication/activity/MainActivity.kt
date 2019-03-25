@@ -2,100 +2,38 @@ package com.example.krzdabrowski.myapplication.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.krzdabrowski.myapplication.R
 import com.example.krzdabrowski.myapplication.adapter.GenericAdapter
-import com.example.krzdabrowski.myapplication.retrofit.SpaceXService
+import com.example.krzdabrowski.myapplication.viewmodel.EventViewModel
+import com.example.krzdabrowski.myapplication.viewmodel.FlightViewModel
+import com.example.krzdabrowski.myapplication.viewmodel.RocketViewModel
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.*
-import retrofit2.HttpException
-import retrofit2.Response
 import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
-
-    private val service by lazy {
-        SpaceXService.create()
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         Timber.plant(Timber.DebugTree())
 
-        rv_generic.layoutManager = LinearLayoutManager(this)
+        val rocketVm = ViewModelProviders.of(this).get(RocketViewModel::class.java)
+        val flightVm = ViewModelProviders.of(this).get(FlightViewModel::class.java)
+        val eventVm = ViewModelProviders.of(this).get(EventViewModel::class.java)
+
+        rv_generic?.layoutManager = LinearLayoutManager(this)
         rv_generic.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
 
-        btn_rockets.setOnClickListener { downloadRockets() }
-        btn_next_flights.setOnClickListener { downloadNextFlights() }
-        btn_ships.setOnClickListener { downloadPastEvents() }
+        btn_rockets.setOnClickListener { rocketVm.getRockets().observe(this, Observer { rockets -> populateAdapter(rockets) }) }
+        btn_next_flights.setOnClickListener { flightVm.getNextFlights().observe(this, Observer { flights -> populateAdapter(flights) }) }
+        btn_events.setOnClickListener { eventVm.getPastEvents().observe(this, Observer { events -> populateAdapter(events) }) }
     }
 
-    private fun downloadRockets() {
-        CoroutineScope(Dispatchers.IO).launch {
-            val request = service.getRocketsAsync()
-            withContext(Dispatchers.Main) {
-                try {
-                    val response = request.await()
-                    if (response.isSuccessful) {
-                        populateAdapter(response)
-                    } else {
-                        Timber.d("Error occurred with code ${response.code()}")
-                    }
-                } catch (e: HttpException) {
-                    Timber.d("Error: ${e.message()}")
-                } catch (e: Throwable) {
-                    Timber.d("Error: ${e.message}")
-                }
-            }
-        }
-    }
-
-    private fun downloadNextFlights() {
-        CoroutineScope(Dispatchers.IO).launch {
-            val request = service.getNextFlightsAsync()
-            withContext(Dispatchers.Main) {
-                try {
-                    val response = request.await()
-                    if (response.isSuccessful) {
-                        populateAdapter(response)
-                    } else {
-                        Timber.d("Error occurred with code ${response.code()}")
-                    }
-                } catch (e: HttpException) {
-                    Timber.d("Error: ${e.message()}")
-                } catch (e: Throwable) {
-                    Timber.d("Error: ${e.message}")
-                }
-            }
-        }
-    }
-
-    private fun downloadPastEvents() {
-        CoroutineScope(Dispatchers.IO).launch {
-            val request = service.getPastEventsAsync()
-            withContext(Dispatchers.Main) {
-                try {
-                    val response = request.await()
-                    if (response.isSuccessful) {
-                        populateAdapter(response)
-                    } else {
-                        Timber.d("Error occurred with code ${response.code()}")
-                    }
-                } catch (e: HttpException) {
-                    Timber.d("Error: ${e.message()}")
-                } catch (e: Throwable) {
-                    Timber.d("Error: ${e.message}")
-                }
-            }
-        }
-    }
-
-    private fun <T> populateAdapter(response: Response<List<T>>) {
-        val data = response.body()
-        if (data != null) {
-            rv_generic.adapter = GenericAdapter(this@MainActivity, data)
-        }
+    private fun <T> populateAdapter(data: List<T>) {
+        rv_generic.adapter = GenericAdapter(this@MainActivity, data)
     }
 }
