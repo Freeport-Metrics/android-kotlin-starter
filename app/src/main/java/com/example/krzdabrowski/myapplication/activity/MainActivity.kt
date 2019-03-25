@@ -8,9 +8,10 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.krzdabrowski.myapplication.R
 import com.example.krzdabrowski.myapplication.adapter.GenericAdapter
-import com.example.krzdabrowski.myapplication.viewmodel.EventViewModel
-import com.example.krzdabrowski.myapplication.viewmodel.FlightViewModel
-import com.example.krzdabrowski.myapplication.viewmodel.RocketViewModel
+import com.example.krzdabrowski.myapplication.repository.EventRepository
+import com.example.krzdabrowski.myapplication.repository.FlightRepository
+import com.example.krzdabrowski.myapplication.repository.RocketRepository
+import com.example.krzdabrowski.myapplication.viewmodel.*
 import kotlinx.android.synthetic.main.activity_main.*
 import timber.log.Timber
 
@@ -21,9 +22,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         Timber.plant(Timber.DebugTree())
 
-        val rocketVm = ViewModelProviders.of(this).get(RocketViewModel::class.java)
-        val flightVm = ViewModelProviders.of(this).get(FlightViewModel::class.java)
-        val eventVm = ViewModelProviders.of(this).get(EventViewModel::class.java)
+        val rocketVm = ViewModelProviders.of(this, RocketFactory(RocketRepository())).get(RocketViewModel::class.java)
+        val flightVm = ViewModelProviders.of(this, FlightFactory(FlightRepository())).get(FlightViewModel::class.java)
+        val eventVm = ViewModelProviders.of(this, EventFactory(EventRepository())).get(EventViewModel::class.java)
 
         rv_generic?.layoutManager = LinearLayoutManager(this)
         rv_generic.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))

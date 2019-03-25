@@ -2,42 +2,22 @@ package com.example.krzdabrowski.myapplication.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.example.krzdabrowski.myapplication.model.Flight
-import com.example.krzdabrowski.myapplication.retrofit.SpaceXService
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import retrofit2.HttpException
-import timber.log.Timber
+import com.example.krzdabrowski.myapplication.repository.FlightRepository
 
-class FlightViewModel: ViewModel() {
-
-    private val service by lazy {
-        SpaceXService.create()
-    }
+class FlightViewModel(private val repository: FlightRepository): ViewModel() {
 
     fun getNextFlights(): MutableLiveData<List<Flight>> {
-        val result = MutableLiveData<List<Flight>>()
-
-        CoroutineScope(Dispatchers.IO).launch {
-            val request = service.getNextFlightsAsync()
-            withContext(Dispatchers.Main) {
-                try {
-                    val response = request.await()
-                    if (response.isSuccessful) {
-                        result.value = response.body()
-                    } else {
-                        Timber.d("Error occurred with code ${response.code()}")
-                    }
-                } catch (e: HttpException) {
-                    Timber.d("Error: ${e.message()}")
-                } catch (e: Throwable) {
-                    Timber.d("Error: ${e.message}")
-                }
-            }
-        }
-
-        return result
+        return repository.getNextFlights()
     }
+
+}
+
+class FlightFactory(private val repository: FlightRepository): ViewModelProvider.Factory {
+
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        return FlightViewModel(this.repository) as T
+    }
+
 }
