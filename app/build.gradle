@@ -34,6 +34,7 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     implementation "androidx.lifecycle:lifecycle-extensions:2.0.0"
     kapt "androidx.lifecycle:lifecycle-compiler:2.0.0"
+    kapt 'com.android.databinding:compiler:3.1.4'
 
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.5.0'

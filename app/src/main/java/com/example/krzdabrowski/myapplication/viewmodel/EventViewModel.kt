@@ -6,10 +6,12 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.krzdabrowski.myapplication.model.Event
 import com.example.krzdabrowski.myapplication.repository.EventRepository
 
-class EventViewModel(private val repository: EventRepository): ViewModel() {
+class EventViewModel(repository: EventRepository): ViewModel() {
+
+    private val pastEventsList = repository.fetchPastEvents()
 
     fun getPastEvents(): MutableLiveData<List<Event>> {
-        return repository.getPastEvents()
+        return pastEventsList
     }
 
 }

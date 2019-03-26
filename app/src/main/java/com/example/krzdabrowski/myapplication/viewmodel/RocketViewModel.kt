@@ -6,10 +6,12 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.krzdabrowski.myapplication.model.Rocket
 import com.example.krzdabrowski.myapplication.repository.RocketRepository
 
-class RocketViewModel(private val repository: RocketRepository): ViewModel() {
+class RocketViewModel(repository: RocketRepository): ViewModel() {
+
+    private val rocketList = repository.fetchRockets()
 
     fun getRockets(): MutableLiveData<List<Rocket>> {
-        return repository.fetchRockets()
+        return rocketList
     }
 
 }

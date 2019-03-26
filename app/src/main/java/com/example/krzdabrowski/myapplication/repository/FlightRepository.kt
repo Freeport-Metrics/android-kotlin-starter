@@ -16,7 +16,7 @@ class FlightRepository {
         SpaceXService.create()
     }
 
-    fun getNextFlights(): MutableLiveData<List<Flight>> {
+    fun fetchNextFlights(): MutableLiveData<List<Flight>> {
         val result = MutableLiveData<List<Flight>>()
 
         CoroutineScope(Dispatchers.IO).launch {

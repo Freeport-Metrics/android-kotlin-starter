@@ -16,7 +16,7 @@ class EventRepository {
         SpaceXService.create()
     }
 
-    fun getPastEvents(): MutableLiveData<List<Event>> {
+    fun fetchPastEvents(): MutableLiveData<List<Event>> {
         val result = MutableLiveData<List<Event>>()
 
         CoroutineScope(Dispatchers.IO).launch {

@@ -6,10 +6,12 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.krzdabrowski.myapplication.model.Flight
 import com.example.krzdabrowski.myapplication.repository.FlightRepository
 
-class FlightViewModel(private val repository: FlightRepository): ViewModel() {
+class FlightViewModel(repository: FlightRepository): ViewModel() {
+
+    private val nextFlightsList = repository.fetchNextFlights()
 
     fun getNextFlights(): MutableLiveData<List<Flight>> {
-        return repository.getNextFlights()
+        return nextFlightsList
     }
 
 }
