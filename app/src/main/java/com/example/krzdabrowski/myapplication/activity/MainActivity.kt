@@ -3,28 +3,36 @@ package com.example.krzdabrowski.myapplication.activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.krzdabrowski.myapplication.R
 import com.example.krzdabrowski.myapplication.adapter.GenericAdapter
-import com.example.krzdabrowski.myapplication.repository.EventRepository
-import com.example.krzdabrowski.myapplication.repository.FlightRepository
-import com.example.krzdabrowski.myapplication.repository.RocketRepository
+import com.example.krzdabrowski.myapplication.di.networkModule
+import com.example.krzdabrowski.myapplication.di.repositoryModule
+import com.example.krzdabrowski.myapplication.di.viewModelModule
 import com.example.krzdabrowski.myapplication.viewmodel.*
 import kotlinx.android.synthetic.main.activity_main.*
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.context.startKoin
 import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
+
+    private val rocketVm: RocketViewModel by viewModel()
+    private val flightVm: FlightViewModel by viewModel()
+    private val eventVm: EventViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         Timber.plant(Timber.DebugTree())
-
-        val rocketVm = ViewModelProviders.of(this, RocketFactory(RocketRepository())).get(RocketViewModel::class.java)
-        val flightVm = ViewModelProviders.of(this, FlightFactory(FlightRepository())).get(FlightViewModel::class.java)
-        val eventVm = ViewModelProviders.of(this, EventFactory(EventRepository())).get(EventViewModel::class.java)
+        startKoin {
+            androidLogger()
+            androidContext(this@MainActivity)
+            modules(listOf(repositoryModule, networkModule, viewModelModule))
+        }
 
         rv_generic?.layoutManager = LinearLayoutManager(this)
         rv_generic.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))

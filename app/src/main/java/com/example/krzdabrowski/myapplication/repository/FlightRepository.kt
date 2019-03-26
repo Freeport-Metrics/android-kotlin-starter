@@ -9,12 +9,8 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import timber.log.Timber
-import javax.inject.Inject
 
-class FlightRepository: BaseRepository() {
-
-    @Inject
-    lateinit var service: SpaceXService
+class FlightRepository(private val service: SpaceXService) {
 
     fun fetchNextFlights(): MutableLiveData<List<Flight>> {
         val result = MutableLiveData<List<Flight>>()
