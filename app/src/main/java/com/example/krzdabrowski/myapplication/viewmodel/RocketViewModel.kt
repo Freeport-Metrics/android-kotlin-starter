@@ -13,7 +13,6 @@ class RocketViewModel(repository: RocketRepository): ViewModel() {
     fun getRockets(): MutableLiveData<List<Rocket>> {
         return rocketList
     }
-
 }
 
 class RocketFactory(private val repository: RocketRepository): ViewModelProvider.Factory {

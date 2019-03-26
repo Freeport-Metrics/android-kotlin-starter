@@ -9,12 +9,12 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import timber.log.Timber
+import javax.inject.Inject
 
-class EventRepository {
+class EventRepository: BaseRepository() {
 
-    private val service by lazy {
-        SpaceXService.create()
-    }
+    @Inject
+    lateinit var service: SpaceXService
 
     fun fetchPastEvents(): MutableLiveData<List<Event>> {
         val result = MutableLiveData<List<Event>>()

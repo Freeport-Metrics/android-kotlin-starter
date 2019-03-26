@@ -20,17 +20,4 @@ interface SpaceXService {
 
     @GET("history")
     fun getPastEventsAsync(): Deferred<Response<List<Event>>>
-
-    companion object {
-        private const val BASE_URL = "https://api.spacexdata.com/v3/"
-
-        fun create(): SpaceXService {
-            return Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(CoroutineCallAdapterFactory())
-                .build()
-                .create(SpaceXService::class.java)
-        }
-    }
 }
