@@ -1,5 +1,6 @@
 package com.example.krzdabrowski.myapplication.repository
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.krzdabrowski.myapplication.model.Event
 import com.example.krzdabrowski.myapplication.retrofit.SpaceXService
@@ -12,7 +13,7 @@ import timber.log.Timber
 
 class EventRepository(private val service: SpaceXService) {
 
-    fun fetchPastEvents(): MutableLiveData<List<Event>> {
+    fun fetchPastEvents(): LiveData<List<Event>> {
         val result = MutableLiveData<List<Event>>()
 
         CoroutineScope(Dispatchers.IO).launch {

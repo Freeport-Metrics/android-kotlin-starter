@@ -1,4 +1,4 @@
-package com.example.krzdabrowski.myapplication.adapter
+package com.example.krzdabrowski.myapplication.view
 
 import android.content.Intent
 import android.view.View

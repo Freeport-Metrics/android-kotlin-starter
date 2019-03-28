@@ -1,4 +1,4 @@
-package com.example.krzdabrowski.myapplication.activity
+package com.example.krzdabrowski.myapplication.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -6,7 +6,6 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.krzdabrowski.myapplication.R
-import com.example.krzdabrowski.myapplication.adapter.GenericAdapter
 import com.example.krzdabrowski.myapplication.di.networkModule
 import com.example.krzdabrowski.myapplication.di.repositoryModule
 import com.example.krzdabrowski.myapplication.di.viewModelModule
