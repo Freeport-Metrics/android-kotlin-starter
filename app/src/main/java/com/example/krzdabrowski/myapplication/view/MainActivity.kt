@@ -6,10 +6,14 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.krzdabrowski.myapplication.R
+import com.example.krzdabrowski.myapplication.database.ObjectBox
 import com.example.krzdabrowski.myapplication.di.networkModule
 import com.example.krzdabrowski.myapplication.di.repositoryModule
 import com.example.krzdabrowski.myapplication.di.viewModelModule
+import com.example.krzdabrowski.myapplication.model.Rocket
 import com.example.krzdabrowski.myapplication.viewmodel.*
+import io.objectbox.Box
+import io.objectbox.kotlin.boxFor
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -32,6 +36,9 @@ class MainActivity : AppCompatActivity() {
             androidContext(this@MainActivity)
             modules(listOf(repositoryModule, networkModule, viewModelModule))
         }
+
+        ObjectBox.init(this) // TODO: inject
+        val rocketBox: Box<Rocket> = ObjectBox.boxStore.boxFor()
 
         rv_generic?.layoutManager = LinearLayoutManager(this)
         rv_generic.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
