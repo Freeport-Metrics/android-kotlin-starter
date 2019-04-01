@@ -4,9 +4,12 @@ import io.objectbox.converter.PropertyConverter
 import java.text.SimpleDateFormat
 import java.util.*
 
-fun epochToDate(epoch: Long): String {
-    val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US)
-    return dateFormat.format(java.util.Date(epoch * 1000))
+fun epochToDate(epoch: Long?): String {
+    if (epoch != null) {
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US)
+        return dateFormat.format(java.util.Date(epoch * 1000))
+    }
+    return ""
 }
 
 abstract class BaseMapConverter<V> : PropertyConverter<Map<String, V>, V>

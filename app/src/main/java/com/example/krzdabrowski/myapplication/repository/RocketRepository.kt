@@ -4,10 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.krzdabrowski.myapplication.model.Rocket
 import com.example.krzdabrowski.myapplication.retrofit.SpaceXService
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import retrofit2.HttpException
 import timber.log.Timber
 
@@ -24,16 +21,33 @@ class RocketRepository(private val service: SpaceXService) {
                     if (response.isSuccessful) {
                         result.value = response.body()
                     } else {
-                        Timber.d("Error occurred with code ${response.code()}")
+                        Timber.e("Error occurred with code ${response.code()}")
                     }
                 } catch (e: HttpException) {
-                    Timber.d("Error: ${e.message()}")
+                    Timber.e("Error: ${e.message()}")
                 } catch (e: Throwable) {
-                    Timber.d("Error: ${e.message}")
+                    Timber.e("Error: ${e.message}")
                 }
             }
         }
 
         return result
     }
+//
+//    private fun saveToDatabase(rocketBox: Box<Rocket>, data: LiveData<List<Rocket>>) {
+//        rocketBox.put(data.value)
+//        Timber.d("data size is: ${data.value?.size}")
+//        Timber.d("count is: ${rocketBox.count()}")
+//
+//    }
+//
+//    fun getRocketsFromDatabase(rocketBox: Box<Rocket>): ObjectBoxLiveData<Rocket> {
+//        var result = ObjectBoxLiveData<Rocket>(null)
+//        result = ObjectBoxLiveData<Rocket>(rocketBox.query().order(Rocket_.name).build())
+//
+////        CoroutineScope(Dispatchers.IO).launch {
+////        }
+//
+//        return result
+//    }
 }

@@ -2,7 +2,9 @@ package com.example.krzdabrowski.myapplication.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.krzdabrowski.myapplication.R
@@ -37,18 +39,36 @@ class MainActivity : AppCompatActivity() {
             modules(listOf(repositoryModule, networkModule, viewModelModule))
         }
 
-        ObjectBox.init(this) // TODO: inject
-        val rocketBox: Box<Rocket> = ObjectBox.boxStore.boxFor()
-
+        ObjectBox.init(this ) //TODO: inject?
         rv_generic?.layoutManager = LinearLayoutManager(this)
         rv_generic.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
 
-        btn_rockets.setOnClickListener { rocketVm.getRockets().observe(this, Observer { rockets -> populateAdapter(rockets) }) }
-        btn_next_flights.setOnClickListener { flightVm.getNextFlights().observe(this, Observer { flights -> populateAdapter(flights) }) }
+        val rocketBox: Box<Rocket> = ObjectBox.boxStore.boxFor()
+        val exampleVm = ViewModelProviders.of(this).get(ExampleViewModel::class.java)
+
+        btn_rockets.setOnClickListener {
+            if (rocketBox.all == null || rocketBox.all.isEmpty()) {
+                val data = rocketVm.getRocketsFromRetrofit()
+                data.observe(this, Observer { rockets -> populateAdapter(rockets); rocketBox.put(data.value); })
+            } else {
+                populateAdapter(rocketBox.all)
+            }
+        }
+
+        btn_next_flights.setOnClickListener {
+        }
+
+
+//        btn_next_flights.setOnClickListener { flightVm.getNextFlights().observe(this, Observer { flights -> populateAdapter(flights) }) }
         btn_events.setOnClickListener { eventVm.getPastEvents().observe(this, Observer { events -> populateAdapter(events) }) }
     }
 
+    private fun showToast() {
+        Toast.makeText(this, "CHANGED", Toast.LENGTH_SHORT).show()
+    }
+
     private fun <T> populateAdapter(data: List<T>) {
+        Timber.d("DATA IS: $data")
         rv_generic.adapter = GenericAdapter(this@MainActivity, data)
     }
 }

@@ -18,11 +18,11 @@ import kotlinx.android.synthetic.main.item_rocket.view.*
 class RocketViewHolder(private val view: View) : RecyclerView.ViewHolder(view), GenericAdapter.Binder<Rocket> {
     override fun bind(data: Rocket) {
         view.tv_rocket_name.text = data.name
-        view.tv_rocket_cost_per_launch.text = view.context.getString(R.string.rocket_name, data.cost / 1_000_000)
+        view.tv_rocket_cost_per_launch.text = view.context.getString(R.string.rocket_name, data.cost?.div(1_000_000))
         view.tv_rocket_first_flight.text = view.context.getString(R.string.rocket_first_flight, data.firstFlight)
-        view.tv_rocket_height.text = view.context.getString(R.string.rocket_height, data.height["meters"])
-        view.tv_rocket_weight.text = view.context.getString(R.string.rocket_weight, data.weight["kg"]?.div(1_000))
-        Picasso.get().load(data.image[0]).into(view.iv_rocket)
+        view.tv_rocket_height.text = view.context.getString(R.string.rocket_height, data.height?.get("meters"))
+        view.tv_rocket_weight.text = view.context.getString(R.string.rocket_weight, data.weight?.get("kg")?.div(1_000))
+        Picasso.get().load(data.image?.get(0)).into(view.iv_rocket)
 
         view.setOnClickListener {
             if (data.url != null) {
@@ -42,7 +42,7 @@ class FlightViewHolder(private val view: View) : RecyclerView.ViewHolder(view), 
         view.tv_flight_date.text = view.context.getString(R.string.flight_event_date, epochToDate(data.launchDate))
 
         view.setOnClickListener {
-            if (data.urls["reddit_campaign"] != null) {
+            if (data.urls?.get("reddit_campaign") != null) {
                 val intent = Intent(Intent.ACTION_VIEW)
                 intent.data = data.urls["reddit_campaign"].toString().toUri()
                 view.context.startActivity(intent)
@@ -60,7 +60,7 @@ class EventViewHolder(private val view: View) : RecyclerView.ViewHolder(view), G
         view.tv_event_info.text = data.info
 
         view.setOnClickListener {
-            if (data.urls["article"] != null) {
+            if (data.urls?.get("article") != null) {
                 val intent = Intent(Intent.ACTION_VIEW)
                 intent.data = data.urls["article"].toString().toUri()
                 view.context.startActivity(intent)
