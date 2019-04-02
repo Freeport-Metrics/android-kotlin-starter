@@ -4,12 +4,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.krzdabrowski.myapplication.model.Rocket
 import com.example.krzdabrowski.myapplication.retrofit.SpaceXService
-import io.objectbox.Box
+import io.objectbox.BoxStore
+import io.objectbox.kotlin.boxFor
 import kotlinx.coroutines.*
 import retrofit2.HttpException
 import timber.log.Timber
 
-class RocketRepository(private val service: SpaceXService) : BaseRepository<Rocket> {
+class RocketRepository(private val service: SpaceXService, private val boxStore: BoxStore) : BaseRepository<Rocket> {
 
     override fun fetchData(): LiveData<List<Rocket>> {
         val result = MutableLiveData<List<Rocket>>()
@@ -35,9 +36,9 @@ class RocketRepository(private val service: SpaceXService) : BaseRepository<Rock
         return result
     }
 
-    override fun saveToDatabase(box: Box<Rocket>, data: List<Rocket>) {
+    override fun saveToDatabase(data: List<Rocket>) {
         CoroutineScope(Dispatchers.IO).launch {
-            box.put(data)
+            boxStore.boxFor<Rocket>().put(data)
         }
     }
 }
