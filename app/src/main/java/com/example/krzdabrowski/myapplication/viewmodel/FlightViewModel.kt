@@ -8,17 +8,17 @@ import com.example.krzdabrowski.myapplication.repository.FlightRepository
 import io.objectbox.Box
 import io.objectbox.kotlin.boxFor
 
-class FlightViewModel(private val repository: FlightRepository): ViewModel() {
+class FlightViewModel(private val repository: FlightRepository): BaseViewModel<Flight>() {
 
     private lateinit var flightList: LiveData<List<Flight>>
     val box: Box<Flight> = ObjectBox.boxStore.boxFor()
 
-    fun getFlightsFromRetrofit(): LiveData<List<Flight>> {
+    override fun getDataFromRetrofit(): LiveData<List<Flight>> {
         flightList = repository.fetchNextFlights()
         return flightList
     }
 
-    fun saveToDatabase(data: List<Flight>) {
+    override fun saveToDatabase(data: List<Flight>) {
         repository.saveToDatabase(box, data)
     }
 

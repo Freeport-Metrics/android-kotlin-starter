@@ -2,7 +2,6 @@ package com.example.krzdabrowski.myapplication.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -30,7 +29,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         ObjectBox.init(this ) //TODO: inject
         Timber.plant(Timber.DebugTree())
-
         startKoin {
             androidLogger()
             androidContext(this@MainActivity)
@@ -42,11 +40,7 @@ class MainActivity : AppCompatActivity() {
 
         btn_rockets.setOnClickListener {
             if (rocketVm.box.all == null || rocketVm.box.all.isEmpty()) {
-                val data = rocketVm.getRocketsFromRetrofit()
-                data.observe(this, Observer {
-                        rockets -> populateAdapter(rockets)
-                        if (data.value != null) rocketVm.saveToDatabase(data.value!!)
-                })
+                downloadAndSaveData(rocketVm)
             } else {
                 populateAdapter(rocketVm.box.all)
             }
@@ -54,11 +48,7 @@ class MainActivity : AppCompatActivity() {
 
         btn_next_flights.setOnClickListener {
             if (flightVm.box.all == null || flightVm.box.all.isEmpty()) {
-                val data = flightVm.getFlightsFromRetrofit()
-                data.observe(this, Observer {
-                        flights -> populateAdapter(flights)
-                        if (data.value != null) flightVm.saveToDatabase(data.value!!)
-                })
+                downloadAndSaveData(flightVm)
             } else {
                 populateAdapter(flightVm.box.all)
             }
@@ -66,23 +56,23 @@ class MainActivity : AppCompatActivity() {
 
         btn_events.setOnClickListener {
             if (eventVm.box.all == null || eventVm.box.all.isEmpty()) {
-                val data = eventVm.getEventsFromRetrofit()
-                data.observe(this, Observer {
-                        events -> populateAdapter(events)
-                    if (data.value != null) eventVm.saveToDatabase(data.value!!)
-                })
+                downloadAndSaveData(eventVm)
             } else {
                 populateAdapter(eventVm.box.all)
             }
         }
     }
 
-    private fun showToast() {
-        Toast.makeText(this, "CHANGED", Toast.LENGTH_SHORT).show()
+    private fun <T> downloadAndSaveData(viewModel: BaseViewModel<T>) {
+        val liveData = viewModel.getDataFromRetrofit()
+        liveData.observe(this, Observer {
+                events -> populateAdapter(events)
+            if (liveData.value != null) viewModel.saveToDatabase(liveData.value!!)
+        })
+
     }
 
     private fun <T> populateAdapter(data: List<T>) {
-        Timber.d("DATA IS: $data")
         rv_generic.adapter = GenericAdapter(this@MainActivity, data)
     }
 }
