@@ -16,6 +16,6 @@ data class Rocket(
     @SerializedName("first_flight") val firstFlight: String?,
     @SerializedName("wikipedia") val url: String?,
     @SerializedName("flickr_images") @Convert(converter = ListStringConverter::class, dbType = String::class) val image: List<String>?,
-    @SerializedName("height") @Convert(converter = MapToDoubleConverter::class, dbType = Double::class) val height: Map<String, Double>?,
-    @SerializedName("mass") @Convert(converter = MapToIntConverter::class, dbType = Int::class) val weight: Map<String, Int>?
+    @SerializedName("height") @Convert(converter = MapToDoubleConverter::class, dbType = Double::class) val height: Map<String, Double?>?,
+    @SerializedName("mass") @Convert(converter = MapToIntConverter::class, dbType = Int::class) val weight: Map<String, Int?>?
 )

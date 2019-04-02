@@ -12,5 +12,5 @@ data class Event(
     @SerializedName("title") val name: String?,
     @SerializedName("event_date_unix") val date: Long?,
     @SerializedName("details") val info: String?,
-    @SerializedName("links") @Convert(converter = MapToStringConverter::class, dbType = String::class) val urls: Map<String, String>?
+    @SerializedName("links") @Convert(converter = MapToStringConverter::class, dbType = String::class) val urls: Map<String, String?>?
 )

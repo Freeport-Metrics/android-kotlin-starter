@@ -18,7 +18,7 @@ class RocketViewModel(private val repository: RocketRepository): ViewModel() {
         return rocketList
     }
 
-    fun saveToDatabase(data: List<Rocket>?) {
+    fun saveToDatabase(data: List<Rocket>) {
         repository.saveToDatabase(box, data)
     }
 }

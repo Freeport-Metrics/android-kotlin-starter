@@ -35,7 +35,7 @@ class RocketRepository(private val service: SpaceXService) {
         return result
     }
 
-    fun saveToDatabase(box: Box<Rocket>, data: List<Rocket>?) {
+    fun saveToDatabase(box: Box<Rocket>, data: List<Rocket>) {
         CoroutineScope(Dispatchers.IO).launch {
             box.put(data)
         }

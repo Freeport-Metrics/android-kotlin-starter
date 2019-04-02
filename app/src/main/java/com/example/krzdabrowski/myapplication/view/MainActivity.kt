@@ -28,28 +28,53 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        ObjectBox.init(this ) //TODO: inject
         Timber.plant(Timber.DebugTree())
+
         startKoin {
             androidLogger()
             androidContext(this@MainActivity)
             modules(listOf(repositoryModule, networkModule, viewModelModule))
         }
 
-        ObjectBox.init(this ) //TODO: inject?
         rv_generic?.layoutManager = LinearLayoutManager(this)
         rv_generic.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
 
         btn_rockets.setOnClickListener {
             if (rocketVm.box.all == null || rocketVm.box.all.isEmpty()) {
                 val data = rocketVm.getRocketsFromRetrofit()
-                data.observe(this, Observer { rockets -> populateAdapter(rockets); rocketVm.saveToDatabase(data.value) })
+                data.observe(this, Observer {
+                        rockets -> populateAdapter(rockets)
+                        if (data.value != null) rocketVm.saveToDatabase(data.value!!)
+                })
             } else {
                 populateAdapter(rocketVm.box.all)
             }
         }
 
-        btn_next_flights.setOnClickListener { flightVm.getNextFlights().observe(this, Observer { flights -> populateAdapter(flights) }) }
-        btn_events.setOnClickListener { eventVm.getPastEvents().observe(this, Observer { events -> populateAdapter(events) }) }
+        btn_next_flights.setOnClickListener {
+            if (flightVm.box.all == null || flightVm.box.all.isEmpty()) {
+                val data = flightVm.getFlightsFromRetrofit()
+                data.observe(this, Observer {
+                        flights -> populateAdapter(flights)
+                        if (data.value != null) flightVm.saveToDatabase(data.value!!)
+                })
+            } else {
+                populateAdapter(flightVm.box.all)
+            }
+        }
+
+        btn_events.setOnClickListener {
+            if (eventVm.box.all == null || eventVm.box.all.isEmpty()) {
+                val data = eventVm.getEventsFromRetrofit()
+                data.observe(this, Observer {
+                        events -> populateAdapter(events)
+                    if (data.value != null) eventVm.saveToDatabase(data.value!!)
+                })
+            } else {
+                populateAdapter(eventVm.box.all)
+            }
+        }
     }
 
     private fun showToast() {

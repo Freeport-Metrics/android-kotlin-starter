@@ -42,9 +42,9 @@ class FlightViewHolder(private val view: View) : RecyclerView.ViewHolder(view), 
         view.tv_flight_date.text = view.context.getString(R.string.flight_event_date, epochToDate(data.launchDate))
 
         view.setOnClickListener {
-            if (data.urls?.get("reddit_campaign") != null) {
+            if (data.urls?.reddit_campaign != null) {
                 val intent = Intent(Intent.ACTION_VIEW)
-                intent.data = data.urls["reddit_campaign"].toString().toUri()
+                intent.data = data.urls.reddit_campaign.toUri()
                 view.context.startActivity(intent)
             } else {
                 Toast.makeText(view.context, view.context.getString(R.string.toast_no_campaign), Toast.LENGTH_SHORT).show()
