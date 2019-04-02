@@ -12,9 +12,9 @@ import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import timber.log.Timber
 
-class FlightRepository(private val service: SpaceXService) {
+class FlightRepository(private val service: SpaceXService) : BaseRepository<Flight> {
 
-    fun fetchNextFlights(): LiveData<List<Flight>> {
+    override fun fetchData(): LiveData<List<Flight>> {
         val result = MutableLiveData<List<Flight>>()
 
         CoroutineScope(Dispatchers.IO).launch {
@@ -38,7 +38,7 @@ class FlightRepository(private val service: SpaceXService) {
         return result
     }
 
-    fun saveToDatabase(box: Box<Flight>, data: List<Flight>) {
+    override fun saveToDatabase(box: Box<Flight>, data: List<Flight>) {
         CoroutineScope(Dispatchers.IO).launch {
             box.put(data)
         }

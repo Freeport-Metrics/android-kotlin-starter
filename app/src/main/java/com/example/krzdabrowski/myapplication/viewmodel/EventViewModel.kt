@@ -14,7 +14,7 @@ class EventViewModel(private val repository: EventRepository): BaseViewModel<Eve
     val box: Box<Event> = ObjectBox.boxStore.boxFor()
 
     override fun getDataFromRetrofit(): LiveData<List<Event>> {
-        eventsList = repository.fetchPastEvents()
+        eventsList = repository.fetchData()
         return eventsList
     }
 

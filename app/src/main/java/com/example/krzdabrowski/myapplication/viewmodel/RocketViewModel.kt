@@ -14,7 +14,7 @@ class RocketViewModel(private val repository: RocketRepository): BaseViewModel<R
     val box: Box<Rocket> = ObjectBox.boxStore.boxFor()
 
     override fun getDataFromRetrofit(): LiveData<List<Rocket>> {
-        rocketList = repository.fetchRockets()
+        rocketList = repository.fetchData()
         return rocketList
     }
 

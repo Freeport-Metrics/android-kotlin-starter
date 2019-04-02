@@ -14,7 +14,7 @@ class FlightViewModel(private val repository: FlightRepository): BaseViewModel<F
     val box: Box<Flight> = ObjectBox.boxStore.boxFor()
 
     override fun getDataFromRetrofit(): LiveData<List<Flight>> {
-        flightList = repository.fetchNextFlights()
+        flightList = repository.fetchData()
         return flightList
     }
 
