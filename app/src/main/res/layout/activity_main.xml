@@ -23,9 +23,16 @@
             android:text="@string/button_events"
             tools:ignore="MissingConstraints"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_generic"
-            style="@style/RecyclerView"
-            tools:ignore="MissingConstraints"/>
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh"
+            style="@style/DataContainer"
+            tools:ignore="MissingConstraints">
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_generic"
+                style="@style/DataContainer"
+                tools:ignore="MissingConstraints"/>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

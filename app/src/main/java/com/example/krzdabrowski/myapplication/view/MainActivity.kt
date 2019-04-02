@@ -10,6 +10,9 @@ import com.example.krzdabrowski.myapplication.di.boxModule
 import com.example.krzdabrowski.myapplication.di.networkModule
 import com.example.krzdabrowski.myapplication.di.repositoryModule
 import com.example.krzdabrowski.myapplication.di.viewModelModule
+import com.example.krzdabrowski.myapplication.helper.NEXT_FLIGHTS
+import com.example.krzdabrowski.myapplication.helper.PAST_EVENTS
+import com.example.krzdabrowski.myapplication.helper.ROCKETS
 import com.example.krzdabrowski.myapplication.model.Event
 import com.example.krzdabrowski.myapplication.model.Flight
 import com.example.krzdabrowski.myapplication.model.Rocket
@@ -29,6 +32,7 @@ class MainActivity : AppCompatActivity() {
     private val rocketVm: RocketViewModel by viewModel()
     private val flightVm: FlightViewModel by viewModel()
     private val eventVm: EventViewModel by viewModel()
+    private var currentDataType = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,6 +52,7 @@ class MainActivity : AppCompatActivity() {
         rv_generic.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
 
         btn_rockets.setOnClickListener {
+            currentDataType = ROCKETS
             if (rocketBox.all == null || rocketBox.all.isEmpty()) {
                 downloadAndSaveData(rocketVm)
             } else {
@@ -56,6 +61,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         btn_next_flights.setOnClickListener {
+            currentDataType = NEXT_FLIGHTS
             if (flightBox.all == null || flightBox.all.isEmpty()) {
                 downloadAndSaveData(flightVm)
             } else {
@@ -64,10 +70,19 @@ class MainActivity : AppCompatActivity() {
         }
 
         btn_events.setOnClickListener {
+            currentDataType = PAST_EVENTS
             if (eventBox.all == null || eventBox.all.isEmpty()) {
                 downloadAndSaveData(eventVm)
             } else {
                 populateAdapter(eventBox.all)
+            }
+        }
+
+        swipe_refresh.setOnRefreshListener {
+            when (currentDataType) {
+                ROCKETS -> downloadAndSaveData(rocketVm)
+                NEXT_FLIGHTS -> downloadAndSaveData(flightVm)
+                PAST_EVENTS -> downloadAndSaveData(eventVm)
             }
         }
     }
@@ -75,8 +90,9 @@ class MainActivity : AppCompatActivity() {
     private fun <T> downloadAndSaveData(viewModel: BaseViewModel<T>) {
         val liveData = viewModel.getDataFromRetrofit()
         liveData.observe(this, Observer {
-                events -> populateAdapter(events)
+            events -> populateAdapter(events)
             if (liveData.value != null) viewModel.saveToDatabase(liveData.value!!)
+            swipe_refresh.isRefreshing = false
         })
     }
 

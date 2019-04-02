@@ -38,7 +38,7 @@
         <item name="layout_constraintBaseline_toBaselineOf">@id/btn_next_flights</item>
     </style>
 
-    <style name="RecyclerView">
+    <style name="DataContainer">
         <item name="android:layout_width">@dimen/dimen_0</item>
         <item name="android:layout_height">@dimen/dimen_0</item>
         <item name="android:layout_margin">@dimen/margin_tiny</item>
