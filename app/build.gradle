@@ -20,32 +20,47 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    dataBinding {
-        enabled = true
-    }
+}
+
+ext {
+    coroutinesVersion = '1.0.1'
+    ktxVersion = '1.0.1'
+    appCompatVersion = '1.0.2'
+    constraintLayoutVersion = '1.1.3'
+    recyclerViewVersion = '1.0.0'
+    lifecycleExtensionsVersion = '2.0.0'
+
+    retrofitVersion = '2.5.0'
+    retrofitCoroutinesAdapterVersion = '0.9.2'
+    picassoVersion = '2.71828'
+    timberVersion = '4.7.1'
+    koinVersion = '2.0.0-rc-2'
+
+    testJunitVersion = '4.12'
+    testRunnerVersion = '1.1.1'
+    testEspressoVersion = '3.1.1'
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.1.0-alpha05'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.0.1'
-    implementation 'androidx.appcompat:appcompat:1.1.0-alpha03'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    implementation 'androidx.recyclerview:recyclerview:1.0.0'
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
-    kapt 'com.android.databinding:compiler:3.1.4'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
+    implementation "androidx.core:core-ktx:$ktxVersion"
+    implementation "androidx.appcompat:appcompat:$appCompatVersion"
+    implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
+    implementation "androidx.recyclerview:recyclerview:$recyclerViewVersion"
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycleExtensionsVersion"
 
-    implementation 'com.squareup.retrofit2:retrofit:2.5.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
-    implementation 'com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2'
-    implementation 'com.squareup.picasso:picasso:2.71828'
-    implementation 'com.jakewharton.timber:timber:4.7.1'
-    implementation 'org.koin:koin-android:2.0.0-rc-1'
-    implementation 'org.koin:koin-androidx-viewmodel:2.0.0-rc-1'
-    implementation "io.objectbox:objectbox-kotlin:2.3.4"
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:$retrofitCoroutinesAdapterVersion"
+    implementation "com.squareup.picasso:picasso:$picassoVersion"
+    implementation "com.jakewharton.timber:timber:$timberVersion"
+    implementation "org.koin:koin-android:$koinVersion"
+    implementation "org.koin:koin-androidx-viewmodel:$koinVersion"
+    implementation "io.objectbox:objectbox-kotlin:$objectboxVersion"
 
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.1.2-alpha02'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0-alpha02'
+    testImplementation "junit:junit:$testJunitVersion"
+    androidTestImplementation "androidx.test:runner:$testRunnerVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$testEspressoVersion"
 }
