@@ -70,6 +70,7 @@
     <style name="Item.Layout">
         <item name="android:layout_width">@dimen/dimen_0</item>
         <item name="android:layout_weight">1</item>
+        <item name="android:layout_gravity">center_vertical</item>
     </style>
 
     <style name="Item.Layout.Info">
@@ -77,7 +78,10 @@
         <item name="android:orientation">vertical</item>
     </style>
 
-    <style name="Item.Layout.Image"/>
+    <style name="Item.Layout.Image">
+        <item name="android:adjustViewBounds">true</item>
+        <item name="android:scaleType">fitEnd</item>
+    </style>
 
     <style name="Item.Title">
         <item name="android:layout_width">wrap_content</item>

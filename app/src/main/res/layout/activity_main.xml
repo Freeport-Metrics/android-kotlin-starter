@@ -31,7 +31,8 @@
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_generic"
                 style="@style/DataContainer"
-                tools:ignore="MissingConstraints"/>
+                tools:ignore="MissingConstraints"
+                tools:listitem="@layout/item_rocket"/>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
