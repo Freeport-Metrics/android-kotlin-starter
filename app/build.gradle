@@ -7,7 +7,7 @@ apply plugin: 'io.objectbox'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.example.krzdabrowski.myapplication"
+        applicationId "com.freeportmetrics.kotlin_internal_project"
         minSdkVersion 23
         targetSdkVersion 28
         versionCode 1
