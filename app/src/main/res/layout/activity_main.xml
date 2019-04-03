@@ -1,39 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/my_layoutt"
-        style="@style/RootLayout">
+        style="@style/RootLayout"
+        android:animateLayoutChanges="true">
 
-    <Button
-            android:id="@+id/btn_rockets"
-            style="@style/Button.Rockets"
-            android:text="@string/button_rockets"
-            tools:ignore="MissingConstraints"/>
+    <LinearLayout style="@style/Button.RootLayout">
+        <Button
+                android:id="@+id/btn_rockets"
+                style="@style/Button.Button"
+                android:text="@string/button_rockets"/>
 
-    <Button
-            android:id="@+id/btn_next_flights"
-            style="@style/Button.NextFlights"
-            android:text="@string/button_next_flights"
-            tools:ignore="MissingConstraints"/>
+        <Button
+                android:id="@+id/btn_next_flights"
+                style="@style/Button.Button"
+                android:text="@string/button_next_flights"/>
 
-    <Button
-            android:id="@+id/btn_events"
-            style="@style/Button.Events"
-            android:text="@string/button_events"
-            tools:ignore="MissingConstraints"/>
+        <Button
+                android:id="@+id/btn_events"
+                style="@style/Button.Button"
+                android:text="@string/button_events"/>
+    </LinearLayout>
+
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/swipe_refresh"
-            style="@style/DataContainer"
-            tools:ignore="MissingConstraints">
+            style="@style/DataContainer">
 
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_generic"
                 style="@style/DataContainer"
-                tools:ignore="MissingConstraints"
                 tools:listitem="@layout/item_rocket"/>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

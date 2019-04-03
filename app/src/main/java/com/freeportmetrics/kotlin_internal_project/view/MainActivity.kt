@@ -44,12 +44,7 @@ class MainActivity : AppCompatActivity() {
         startKoin {
             androidLogger()
             androidContext(this@MainActivity)
-            modules(listOf(
-                repositoryModule,
-                networkModule,
-                boxModule,
-                viewModelModule
-            ))
+            modules(listOf(repositoryModule, networkModule, boxModule, viewModelModule))
         }
 
         rv_generic?.layoutManager = LinearLayoutManager(this)
