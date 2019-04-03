@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import com.example.krzdabrowski.myapplication.model.Flight
 import com.example.krzdabrowski.myapplication.repository.FlightRepository
 
-class FlightViewModel(private val repository: FlightRepository): BaseViewModel<Flight>() {
+class FlightViewModel(private val repository: FlightRepository) : BaseViewModel<Flight>() {
 
     private lateinit var flightList: LiveData<List<Flight>>
 

@@ -23,12 +23,12 @@ class RocketRepository(private val service: SpaceXService, private val boxStore:
                     if (response.isSuccessful) {
                         result.value = response.body()
                     } else {
-                        Timber.e("Error occurred with code ${response.code()}")
+                        Timber.d("Error occurred with code ${response.code()}")
                     }
                 } catch (e: HttpException) {
-                    Timber.e("Error: ${e.message()}")
+                    Timber.d("Error: ${e.message()}")
                 } catch (e: Throwable) {
-                    Timber.e("Error: ${e.message}")
+                    Timber.d("Error: ${e.message}")
                 }
             }
         }

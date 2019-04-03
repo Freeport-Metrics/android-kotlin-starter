@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import com.example.krzdabrowski.myapplication.model.Rocket
 import com.example.krzdabrowski.myapplication.repository.RocketRepository
 
-class RocketViewModel(private val repository: RocketRepository): BaseViewModel<Rocket>() {
+class RocketViewModel(private val repository: RocketRepository) : BaseViewModel<Rocket>() {
 
     private lateinit var rocketList: LiveData<List<Rocket>>
 

@@ -44,12 +44,16 @@ class MainActivity : AppCompatActivity() {
             modules(listOf(repositoryModule, networkModule, boxModule, viewModelModule))
         }
 
+        rv_generic?.layoutManager = LinearLayoutManager(this)
+        rv_generic.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
+
+        setListeners()
+    }
+
+    private fun setListeners() {
         val rocketBox = boxStore.boxFor<Rocket>()
         val flightBox = boxStore.boxFor<Flight>()
         val eventBox = boxStore.boxFor<Event>()
-
-        rv_generic?.layoutManager = LinearLayoutManager(this)
-        rv_generic.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
 
         btn_rockets.setOnClickListener {
             currentDataType = ROCKETS
@@ -89,10 +93,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun <T> downloadAndSaveData(viewModel: BaseViewModel<T>) {
         val liveData = viewModel.getDataFromRetrofit()
-        liveData.observe(this, Observer {
-            events -> populateAdapter(events)
-            if (liveData.value != null) viewModel.saveToDatabase(liveData.value!!)
-            swipe_refresh.isRefreshing = false
+        liveData.observe(this, Observer { data ->
+            if (data != null) {
+                populateAdapter(data)
+                viewModel.saveToDatabase(data)
+                swipe_refresh.isRefreshing = false
+            }
         })
     }
 
