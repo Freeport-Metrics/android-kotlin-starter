@@ -1,5 +1,6 @@
 package com.freeportmetrics.kotlin_internal_project.retrofit
 
+import com.freeportmetrics.kotlin_internal_project.BuildConfig
 import com.freeportmetrics.kotlin_internal_project.model.Flight
 import com.freeportmetrics.kotlin_internal_project.model.Rocket
 import com.freeportmetrics.kotlin_internal_project.model.Event
@@ -22,11 +23,9 @@ interface SpaceXService {
     fun getPastEventsAsync(): Deferred<Response<List<Event>>>
 
     companion object {
-        private const val BASE_URL = "https://api.spacexdata.com/v3/"
-
         fun create(): SpaceXService {
             return Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(BuildConfig.SPACEX_API_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(CoroutineCallAdapterFactory())
                 .build()

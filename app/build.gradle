@@ -5,6 +5,7 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'io.objectbox'
 
 android {
+    flavorDimensions "default"
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.freeportmetrics.kotlin_internal_project"
@@ -18,6 +19,11 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    productFlavors {
+        dev {
+            buildConfigField "String", "SPACEX_API_URL", "\"https://api.spacexdata.com/v3/\""
         }
     }
 }
