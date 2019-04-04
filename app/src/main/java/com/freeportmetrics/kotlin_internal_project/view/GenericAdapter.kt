@@ -13,19 +13,9 @@ class GenericAdapter<T>(private val context: Context, private val items: List<T>
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when {
-            items.all { it is Rocket } -> RocketViewHolder(
-                LayoutInflater.from(context).inflate(R.layout.item_rocket, parent, false)
-            )
-            items.all { it is Flight } -> FlightViewHolder(
-                LayoutInflater.from(context).inflate(R.layout.item_flight, parent, false)
-            )
-            else -> EventViewHolder(
-                LayoutInflater.from(context).inflate(
-                    R.layout.item_event,
-                    parent,
-                    false
-                )
-            )
+            items.all { it is Rocket } -> RocketViewHolder(LayoutInflater.from(context).inflate(R.layout.item_rocket, parent, false))
+            items.all { it is Flight } -> FlightViewHolder(LayoutInflater.from(context).inflate(R.layout.item_flight, parent, false))
+            else -> EventViewHolder(LayoutInflater.from(context).inflate(R.layout.item_event, parent, false))
         }
     }
 

@@ -13,49 +13,25 @@ fun epochToDate(epoch: Long?): String {
     return ""
 }
 
-abstract class BaseMapConverter<V> : PropertyConverter<Map<String, V?>, V?>
-
-class MapToDoubleConverter : BaseMapConverter<Double>() {
-    override fun convertToDatabaseValue(entityProperty: Map<String, Double?>): Double? {
-        return entityProperty["meters"]
+abstract class BaseMapConverter<V>(private val property: String) : PropertyConverter<Map<String, V?>, V?> {
+    override fun convertToDatabaseValue(entityProperty: Map<String, V?>): V? {
+        return entityProperty[property]
     }
 
-    override fun convertToEntityProperty(databaseValue: Double?): Map<String, Double?> {
+    override fun convertToEntityProperty(databaseValue: V?): Map<String, V?> {
         return if (databaseValue != null) {
-            mapOf(Pair("meters", databaseValue))
+            mapOf(Pair(property, databaseValue))
         } else {
-            mapOf(Pair("meters", null))
+            mapOf(Pair(property, null))
         }
     }
 }
 
-class MapToIntConverter : BaseMapConverter<Int>() {
-    override fun convertToDatabaseValue(entityProperty: Map<String, Int?>): Int? {
-        return entityProperty["kg"]
-    }
+class MapToDoubleConverter : BaseMapConverter<Double>("meters")
 
-    override fun convertToEntityProperty(databaseValue: Int?): Map<String, Int?> {
-        return if (databaseValue != null) {
-            mapOf(Pair("kg", databaseValue))
-        } else {
-            mapOf(Pair("kg", null))
-        }
-    }
-}
+class MapToIntConverter : BaseMapConverter<Int>("kg")
 
-class MapToStringConverter : BaseMapConverter<String>() {
-    override fun convertToDatabaseValue(entityProperty: Map<String, String?>): String? {
-        return entityProperty["article"]
-    }
-
-    override fun convertToEntityProperty(databaseValue: String?): Map<String, String?> {
-        return if (databaseValue != null) {
-            mapOf(Pair("article", databaseValue))
-        } else {
-            mapOf(Pair("article", null))
-        }
-    }
-}
+class MapToStringConverter : BaseMapConverter<String>("article")
 
 class LinksConverter : PropertyConverter<FlightLink, String> {
     override fun convertToDatabaseValue(entityProperty: FlightLink?): String? {
