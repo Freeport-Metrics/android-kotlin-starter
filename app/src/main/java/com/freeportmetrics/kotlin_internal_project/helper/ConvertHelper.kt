@@ -1,6 +1,6 @@
 package com.freeportmetrics.kotlin_internal_project.helper
 
-import com.freeportmetrics.kotlin_internal_project.model.FlightLink
+import com.freeportmetrics.kotlin_internal_project.model.Flight.Link
 import io.objectbox.converter.PropertyConverter
 import java.text.SimpleDateFormat
 import java.util.*
@@ -33,16 +33,16 @@ class MapToIntConverter : BaseMapConverter<Int>("kg")
 
 class MapToStringConverter : BaseMapConverter<String>("article")
 
-class LinksConverter : PropertyConverter<FlightLink, String> {
-    override fun convertToDatabaseValue(entityProperty: FlightLink?): String? {
+class LinksConverter : PropertyConverter<Link, String> {
+    override fun convertToDatabaseValue(entityProperty: Link?): String? {
         return entityProperty?.reddit_campaign
     }
 
-    override fun convertToEntityProperty(databaseValue: String?): FlightLink? {
+    override fun convertToEntityProperty(databaseValue: String?): Link? {
         return if (databaseValue != null) {
-            FlightLink(databaseValue)
+            Link(databaseValue)
         } else {
-            FlightLink(null)
+            Link(null)
         }
     }
 }

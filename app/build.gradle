@@ -37,9 +37,9 @@ ext {
 
     retrofitVersion = '2.5.0'
     retrofitCoroutinesAdapterVersion = '0.9.2'
-    picassoVersion = '2.71828'
     timberVersion = '4.7.1'
     koinVersion = '2.0.0-rc-2'
+    glideVersion = '4.9.0'
 
     testJunitVersion = '4.12'
     testRunnerVersion = '1.1.1'
@@ -58,11 +58,12 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
     implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:$retrofitCoroutinesAdapterVersion"
-    implementation "com.squareup.picasso:picasso:$picassoVersion"
     implementation "com.jakewharton.timber:timber:$timberVersion"
     implementation "org.koin:koin-android:$koinVersion"
     implementation "org.koin:koin-androidx-viewmodel:$koinVersion"
     implementation "io.objectbox:objectbox-kotlin:$objectboxVersion"
+    implementation "com.github.bumptech.glide:glide:$glideVersion"
+    annotationProcessor "com.github.bumptech.glide:compiler:$glideVersion"
 
     testImplementation "junit:junit:$testJunitVersion"
     androidTestImplementation "androidx.test:runner:$testRunnerVersion"

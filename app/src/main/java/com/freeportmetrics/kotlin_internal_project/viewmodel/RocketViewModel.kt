@@ -9,7 +9,7 @@ class RocketViewModel(private val repository: RocketRepository) : BaseViewModel<
     private lateinit var rocketList: LiveData<List<Rocket>>
 
     override fun getDataFromRetrofit(): LiveData<List<Rocket>> {
-        rocketList = repository.fetchData()
+        rocketList = repository.loadData()
         return rocketList
     }
 

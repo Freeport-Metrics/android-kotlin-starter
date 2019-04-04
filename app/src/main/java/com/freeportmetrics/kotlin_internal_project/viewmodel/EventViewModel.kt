@@ -9,7 +9,7 @@ class EventViewModel(private val repository: EventRepository) : BaseViewModel<Ev
     private lateinit var eventsList: LiveData<List<Event>>
 
     override fun getDataFromRetrofit(): LiveData<List<Event>> {
-        eventsList = repository.fetchData()
+        eventsList = repository.loadData()
         return eventsList
     }
 

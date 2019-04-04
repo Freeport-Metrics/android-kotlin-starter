@@ -9,7 +9,7 @@ class FlightViewModel(private val repository: FlightRepository) : BaseViewModel<
     private lateinit var flightList: LiveData<List<Flight>>
 
     override fun getDataFromRetrofit(): LiveData<List<Flight>> {
-        flightList = repository.fetchData()
+        flightList = repository.loadData()
         return flightList
     }
 

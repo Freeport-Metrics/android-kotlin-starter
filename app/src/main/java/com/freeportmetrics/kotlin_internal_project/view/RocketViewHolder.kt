@@ -5,9 +5,9 @@ import android.view.View
 import android.widget.Toast
 import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.freeportmetrics.kotlin_internal_project.R
 import com.freeportmetrics.kotlin_internal_project.model.Rocket
-import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_rocket.view.*
 
 class RocketViewHolder(private val view: View) : RecyclerView.ViewHolder(view), GenericAdapter.Binder<Rocket> {
@@ -17,7 +17,7 @@ class RocketViewHolder(private val view: View) : RecyclerView.ViewHolder(view), 
         view.tv_rocket_first_flight.text = view.context.getString(R.string.rocket_first_flight, data.firstFlight)
         view.tv_rocket_height.text = view.context.getString(R.string.rocket_height, data.height["meters"])
         view.tv_rocket_weight.text = view.context.getString(R.string.rocket_weight, data.weight["kg"]?.div(1_000))
-        Picasso.get().load(data.image[0]).into(view.iv_rocket)
+        Glide.with(view.context).load(data.image[0]).into(view.iv_rocket)
 
         view.setOnClickListener {
             if (data.url != null) {
