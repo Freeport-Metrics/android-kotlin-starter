@@ -34,6 +34,13 @@ import org.koin.core.context.stopKoin
 import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
+    private enum class DataType(val id: Int) {
+        NO_TYPE(-1),
+        ROCKETS(0),
+        NEXT_FLIGHTS(1),
+        PAST_EVENTS(2),
+    }
+
     private val boxStore: BoxStore by inject()
     private val darkModeHelper: DarkModeHelper by inject()
     private val rocketVm: RocketViewModel by viewModel()
