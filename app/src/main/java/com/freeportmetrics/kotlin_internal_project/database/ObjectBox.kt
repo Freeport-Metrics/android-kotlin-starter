@@ -6,7 +6,15 @@ import io.objectbox.BoxStore
 
 object ObjectBox {
 
+    lateinit var boxStore: BoxStore
+        private set
+
     fun init(context: Context): BoxStore {
-        return MyObjectBox.builder().androidContext(context.applicationContext).build()
+        if (::boxStore.isInitialized && !boxStore.isClosed) {
+            return boxStore
+        }
+
+        boxStore = MyObjectBox.builder().androidContext(context.applicationContext).build()
+        return boxStore
     }
 }

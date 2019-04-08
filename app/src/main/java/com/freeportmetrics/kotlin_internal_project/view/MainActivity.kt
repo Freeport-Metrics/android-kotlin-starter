@@ -42,8 +42,9 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var sharedPref: SharedPreferences
     private var darkMode = false
-    private var currentDataType = -1
+    private var currentDataType = NO_TYPE
 
+    //region Override
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -56,7 +57,7 @@ class MainActivity : AppCompatActivity() {
 
         sharedPref = getPreferences(Context.MODE_PRIVATE)
         darkMode = sharedPref.getBoolean("darkMode", false)
-        currentDataType = sharedPref.getInt("currentDataType", 0) // TODO: finish implementation to load data while reloading instantly
+        currentDataType = sharedPref.getInt("currentDataType", NO_TYPE)
 
         rv_generic?.layoutManager = LinearLayoutManager(this)
         rv_generic.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
@@ -67,22 +68,38 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            val currentNightMode = resources.configuration.uiMode - 1
-            when (currentNightMode) {
-                Configuration.UI_MODE_NIGHT_YES -> darkMode = true
-                Configuration.UI_MODE_NIGHT_NO -> darkMode = false
-            }
+            configureAutoDarkMode()
         } else {
             darkModeHelper.onModeChanged(darkMode, delegate)
         }
+        handleDataReloading()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        boxStore.close()
         stopKoin()
     }
+    //endregion
 
+    //region Dark Mode
+    private fun configureAutoDarkMode() {
+        val currentNightMode = resources.configuration.uiMode - 1
+        when (currentNightMode) {
+            Configuration.UI_MODE_NIGHT_YES -> darkMode = true
+            Configuration.UI_MODE_NIGHT_NO -> darkMode = false
+        }
+    }
+
+    private fun handleDataReloading() {
+        when (currentDataType) {
+            ROCKETS -> populateAdapter(boxStore.boxFor<Rocket>().all)
+            NEXT_FLIGHTS -> populateAdapter(boxStore.boxFor<Flight>().all)
+            PAST_EVENTS -> populateAdapter(boxStore.boxFor<Event>().all)
+        }
+    }
+    //endregion
+
+    //region Data loading
     private fun setListeners() {
         val rocketBox = boxStore.boxFor<Rocket>()
         val flightBox = boxStore.boxFor<Flight>()
@@ -138,6 +155,7 @@ class MainActivity : AppCompatActivity() {
     private fun <T> populateAdapter(data: List<T>) {
         rv_generic.adapter = GenericAdapter(this@MainActivity, data)
     }
+    //endregion
 
     //region Menu
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
