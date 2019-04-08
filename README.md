@@ -19,15 +19,17 @@ Clicking on each item navigates user to a browser to read more information on th
 
 Use swipe-down gesture to refresh downloaded data.
 
+Click on top-right button to change between Light Mode and Dark Mode.
+
 
 ### **Libraries/concepts used**
 
 * MVVM architecture
 * Retrofit - for networking
-* Moshi converter - for JSON parsing
+* Gson converter - for JSON parsing
 * ObjectBox - for NoSQL database
 * Koin - for service locator pattern implementation
-* Picasso - for image loading
+* Glide - for image loading
 * Timber - for logging
 * Android Architecture Components (LiveData, ViewModel classes) - for observer pattern and MVVM implementation
 * Kotlin coroutines - to manage threads gracefully
