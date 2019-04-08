@@ -8,17 +8,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.appcompat.app.AppCompatDelegate.*
 import androidx.core.content.edit
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.freeportmetrics.kotlin_internal_project.R
-import com.freeportmetrics.kotlin_internal_project.di.boxModule
-import com.freeportmetrics.kotlin_internal_project.di.networkModule
-import com.freeportmetrics.kotlin_internal_project.di.repositoryModule
-import com.freeportmetrics.kotlin_internal_project.di.viewModelModule
+import com.freeportmetrics.kotlin_internal_project.di.*
 import com.freeportmetrics.kotlin_internal_project.helper.*
 import com.freeportmetrics.kotlin_internal_project.model.Event
 import com.freeportmetrics.kotlin_internal_project.model.Flight
@@ -40,6 +35,7 @@ import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
     private val boxStore: BoxStore by inject()
+    private val darkModeHelper: DarkModeHelper by inject()
     private val rocketVm: RocketViewModel by viewModel()
     private val flightVm: FlightViewModel by viewModel()
     private val eventVm: EventViewModel by viewModel()
@@ -55,7 +51,7 @@ class MainActivity : AppCompatActivity() {
         startKoin {
             androidLogger()
             androidContext(this@MainActivity)
-            modules(listOf(repositoryModule, networkModule, boxModule, viewModelModule))
+            modules(listOf(repositoryModule, networkModule, boxModule, viewModelModule, helperModule))
         }
 
         sharedPref = getPreferences(Context.MODE_PRIVATE)
@@ -77,12 +73,7 @@ class MainActivity : AppCompatActivity() {
                 Configuration.UI_MODE_NIGHT_NO -> darkMode = false
             }
         } else {
-            if (darkMode) {
-                AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_YES)
-            } else {
-                AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_NO)
-            }
-            delegate.applyDayNight()
+            darkModeHelper.onModeChanged(darkMode, delegate)
         }
     }
 
@@ -148,6 +139,7 @@ class MainActivity : AppCompatActivity() {
         rv_generic.adapter = GenericAdapter(this@MainActivity, data)
     }
 
+    //region Menu
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.switch_modes_menu, menu)
         return true
@@ -155,32 +147,23 @@ class MainActivity : AppCompatActivity() {
 
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
         super.onPrepareOptionsMenu(menu)
-        val item = menu?.findItem(R.id.mnu_set_theme)
-        if (darkMode) {
-            item?.icon = getDrawable(R.drawable.ic_btn_light_mode)
-        } else {
-            item?.icon = getDrawable(R.drawable.ic_btn_dark_mode)
-        }
+        darkModeHelper.handleIconChange(menu, darkMode)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         return when (item?.itemId) {
             R.id.mnu_set_theme -> {
-                if (darkMode) {
-                    AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_NO)
-                } else {
-                    AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_YES)
-                }
                 darkMode = !darkMode
                 sharedPref.edit {
                     putBoolean("darkMode", darkMode)
                     putInt("currentDataType", currentDataType)
                 }
-                delegate.applyDayNight()
+                darkModeHelper.onModeChanged(darkMode, delegate)
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
     }
+    //endregion
 }
