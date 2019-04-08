@@ -1,10 +1,11 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">Kotlin Internal Project</string>
 
     <!-- Buttons -->
     <string name="button_rockets">Rockets</string>
     <string name="button_next_flights">Next flights</string>
     <string name="button_events">Past events</string>
+    <string name="button_set_theme">Set theme mode</string>
 
     <!-- Info -->
     <string name="rocket_name">"Cost per launch: \$%1$dm"</string>
