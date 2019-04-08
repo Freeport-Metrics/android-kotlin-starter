@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var sharedPref: SharedPreferences
     private var darkMode = false
-    private var currentDataType = NO_TYPE
+    private var currentDataType = DataType.NO_TYPE.id
 
     //region Override
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
 
         sharedPref = getPreferences(Context.MODE_PRIVATE)
         darkMode = sharedPref.getBoolean("darkMode", false)
-        currentDataType = sharedPref.getInt("currentDataType", NO_TYPE)
+        currentDataType = sharedPref.getInt("currentDataType", DataType.NO_TYPE.id)
 
         rv_generic?.layoutManager = LinearLayoutManager(this)
         rv_generic.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
@@ -92,9 +92,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun handleDataReloading() {
         when (currentDataType) {
-            ROCKETS -> populateAdapter(boxStore.boxFor<Rocket>().all)
-            NEXT_FLIGHTS -> populateAdapter(boxStore.boxFor<Flight>().all)
-            PAST_EVENTS -> populateAdapter(boxStore.boxFor<Event>().all)
+            DataType.ROCKETS.id -> populateAdapter(boxStore.boxFor<Rocket>().all)
+            DataType.NEXT_FLIGHTS.id -> populateAdapter(boxStore.boxFor<Flight>().all)
+            DataType.PAST_EVENTS.id -> populateAdapter(boxStore.boxFor<Event>().all)
         }
     }
     //endregion
@@ -106,7 +106,7 @@ class MainActivity : AppCompatActivity() {
         val eventBox = boxStore.boxFor<Event>()
 
         btn_rockets.setOnClickListener {
-            currentDataType = ROCKETS
+            currentDataType = DataType.ROCKETS.id
             if (rocketBox.all == null || rocketBox.all.isEmpty()) {
                 downloadAndSaveData(rocketVm)
             } else {
@@ -115,7 +115,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         btn_next_flights.setOnClickListener {
-            currentDataType = NEXT_FLIGHTS
+            currentDataType = DataType.NEXT_FLIGHTS.id
             if (flightBox.all == null || flightBox.all.isEmpty()) {
                 downloadAndSaveData(flightVm)
             } else {
@@ -124,7 +124,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         btn_events.setOnClickListener {
-            currentDataType = PAST_EVENTS
+            currentDataType = DataType.PAST_EVENTS.id
             if (eventBox.all == null || eventBox.all.isEmpty()) {
                 downloadAndSaveData(eventVm)
             } else {
@@ -134,9 +134,9 @@ class MainActivity : AppCompatActivity() {
 
         swipe_refresh.setOnRefreshListener {
             when (currentDataType) {
-                ROCKETS -> downloadAndSaveData(rocketVm)
-                NEXT_FLIGHTS -> downloadAndSaveData(flightVm)
-                PAST_EVENTS -> downloadAndSaveData(eventVm)
+                DataType.ROCKETS.id -> downloadAndSaveData(rocketVm)
+                DataType.NEXT_FLIGHTS.id -> downloadAndSaveData(flightVm)
+                DataType.PAST_EVENTS.id -> downloadAndSaveData(eventVm)
             }
         }
     }
