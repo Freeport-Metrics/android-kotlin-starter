@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
-apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 apply plugin: 'io.objectbox'
 
 android {
@@ -63,7 +63,7 @@ dependencies {
     implementation "org.koin:koin-androidx-viewmodel:$koinVersion"
     implementation "io.objectbox:objectbox-kotlin:$objectboxVersion"
     implementation "com.github.bumptech.glide:glide:$glideVersion"
-    annotationProcessor "com.github.bumptech.glide:compiler:$glideVersion"
+    kapt "com.github.bumptech.glide:compiler:$glideVersion"
 
     testImplementation "junit:junit:$testJunitVersion"
     androidTestImplementation "androidx.test:runner:$testRunnerVersion"
