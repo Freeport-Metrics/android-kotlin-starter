@@ -100,16 +100,16 @@ class MainActivity : AppCompatActivity() {
     private fun handleDataReloading() {
         when (currentDataType) {
             DataType.ROCKETS.id -> {
+                darkModeHelper.setButtonColors(darkMode, btn_rockets, btn_next_flights, btn_events)
                 populateAdapter(boxStore.boxFor<Rocket>().all)
-                setButtonRocketColor()
             }
             DataType.NEXT_FLIGHTS.id -> {
+                darkModeHelper.setButtonColors(darkMode, btn_next_flights, btn_rockets, btn_events)
                 populateAdapter(boxStore.boxFor<Flight>().all)
-                setButtonFlightsColor()
             }
             DataType.PAST_EVENTS.id -> {
+                darkModeHelper.setButtonColors(darkMode, btn_events, btn_rockets, btn_next_flights)
                 populateAdapter(boxStore.boxFor<Event>().all)
-                setButtonEventsColor()
             }
         }
     }
@@ -123,7 +123,7 @@ class MainActivity : AppCompatActivity() {
 
         btn_rockets.setOnClickListener {
             currentDataType = DataType.ROCKETS.id
-            setButtonRocketColor()
+            darkModeHelper.setButtonColors(darkMode, btn_rockets, btn_next_flights, btn_events)
             if (rocketBox.all == null || rocketBox.all.isEmpty()) {
                 downloadAndSaveData(rocketVm)
             } else {
@@ -133,7 +133,7 @@ class MainActivity : AppCompatActivity() {
 
         btn_next_flights.setOnClickListener {
             currentDataType = DataType.NEXT_FLIGHTS.id
-            setButtonFlightsColor()
+            darkModeHelper.setButtonColors(darkMode, btn_next_flights, btn_rockets, btn_events)
             if (flightBox.all == null || flightBox.all.isEmpty()) {
                 downloadAndSaveData(flightVm)
             } else {
@@ -143,7 +143,7 @@ class MainActivity : AppCompatActivity() {
 
         btn_events.setOnClickListener {
             currentDataType = DataType.PAST_EVENTS.id
-            setButtonEventsColor()
+            darkModeHelper.setButtonColors(darkMode, btn_events, btn_rockets, btn_next_flights)
             if (eventBox.all == null || eventBox.all.isEmpty()) {
                 downloadAndSaveData(eventVm)
             } else {
@@ -157,39 +157,6 @@ class MainActivity : AppCompatActivity() {
                 DataType.NEXT_FLIGHTS.id -> downloadAndSaveData(flightVm)
                 DataType.PAST_EVENTS.id -> downloadAndSaveData(eventVm)
             }
-        }
-    }
-
-    private fun setButtonRocketColor() {
-        btn_rockets.backgroundTintList = getColorStateList(R.color.colorAccent)
-        if (darkMode) {
-            btn_next_flights.backgroundTintList = getColorStateList(R.color.button_material_dark)
-            btn_events.backgroundTintList = getColorStateList(R.color.button_material_dark)
-        } else {
-            btn_next_flights.backgroundTintList = getColorStateList(R.color.button_material_light)
-            btn_events.backgroundTintList = getColorStateList(R.color.button_material_light)
-        }
-    }
-
-    private fun setButtonFlightsColor() {
-        btn_next_flights.backgroundTintList = getColorStateList(R.color.colorAccent)
-        if (darkMode) {
-            btn_rockets.backgroundTintList = getColorStateList(R.color.button_material_dark)
-            btn_events.backgroundTintList = getColorStateList(R.color.button_material_dark)
-        } else {
-            btn_rockets.backgroundTintList = getColorStateList(R.color.button_material_light)
-            btn_events.backgroundTintList = getColorStateList(R.color.button_material_light)
-        }
-    }
-
-    private fun setButtonEventsColor() {
-        btn_events.backgroundTintList = getColorStateList(R.color.colorAccent)
-        if (darkMode) {
-            btn_rockets.backgroundTintList = getColorStateList(R.color.button_material_dark)
-            btn_next_flights.backgroundTintList = getColorStateList(R.color.button_material_dark)
-        } else {
-            btn_rockets.backgroundTintList = getColorStateList(R.color.button_material_light)
-            btn_next_flights.backgroundTintList = getColorStateList(R.color.button_material_light)
         }
     }
 
