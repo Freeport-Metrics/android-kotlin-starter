@@ -73,6 +73,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_marginTop">@dimen/margin_tiny</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/item_title_size</item>
     </style>
 
     <style name="Item.Info">
