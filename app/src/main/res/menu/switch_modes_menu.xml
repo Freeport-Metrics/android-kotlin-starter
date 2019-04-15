@@ -3,7 +3,7 @@
 
     <item android:id="@+id/mnu_set_theme"
           android:title="@string/button_set_theme"
-          android:icon="@drawable/ic_btn_light_mode"
+          android:icon="@drawable/ic_btn"
           app:iconTint="@color/colorWhite"
           app:showAsAction="always"/>
 </menu>

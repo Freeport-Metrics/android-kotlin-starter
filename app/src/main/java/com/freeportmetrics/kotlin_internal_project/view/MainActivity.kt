@@ -90,7 +90,7 @@ class MainActivity : AppCompatActivity() {
 
     //region Dark Mode
     private fun configureAutoDarkMode() {
-        val currentNightMode = resources.configuration.uiMode - 1
+        val currentNightMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
         when (currentNightMode) {
             Configuration.UI_MODE_NIGHT_YES -> darkMode = true
             Configuration.UI_MODE_NIGHT_NO -> darkMode = false
@@ -179,12 +179,6 @@ class MainActivity : AppCompatActivity() {
     //region Menu
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.switch_modes_menu, menu)
-        return true
-    }
-
-    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
-        super.onPrepareOptionsMenu(menu)
-        darkModeHelper.handleIconChange(menu, darkMode)
         return true
     }
 
