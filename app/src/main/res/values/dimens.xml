@@ -2,4 +2,6 @@
 <resources>
     <dimen name="dimen_0">0dp</dimen>
     <dimen name="margin_tiny">8dp</dimen>
+    <dimen name="margin_small">16dp</dimen>
+    <dimen name="title_font_size">18sp</dimen>
 </resources>

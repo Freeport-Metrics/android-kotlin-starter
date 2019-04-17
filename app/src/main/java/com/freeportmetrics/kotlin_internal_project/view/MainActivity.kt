@@ -43,6 +43,7 @@ class MainActivity : AppCompatActivity() {
 
     private val boxStore: BoxStore by inject()
     private val darkModeHelper: DarkModeHelper by inject()
+    private val dialogHelper: DialogHelper by inject()
     private val rocketVm: RocketViewModel by viewModel()
     private val flightVm: FlightViewModel by viewModel()
     private val eventVm: EventViewModel by viewModel()
@@ -90,7 +91,7 @@ class MainActivity : AppCompatActivity() {
 
     //region Dark Mode
     private fun configureAutoDarkMode() {
-        val currentNightMode = resources.configuration.uiMode - 1
+        val currentNightMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
         when (currentNightMode) {
             Configuration.UI_MODE_NIGHT_YES -> darkMode = true
             Configuration.UI_MODE_NIGHT_NO -> darkMode = false
@@ -99,9 +100,18 @@ class MainActivity : AppCompatActivity() {
 
     private fun handleDataReloading() {
         when (currentDataType) {
-            DataType.ROCKETS.id -> populateAdapter(boxStore.boxFor<Rocket>().all)
-            DataType.NEXT_FLIGHTS.id -> populateAdapter(boxStore.boxFor<Flight>().all)
-            DataType.PAST_EVENTS.id -> populateAdapter(boxStore.boxFor<Event>().all)
+            DataType.ROCKETS.id -> {
+                darkModeHelper.setButtonColors(darkMode, btn_rockets, btn_next_flights, btn_events)
+                populateAdapter(boxStore.boxFor<Rocket>().all)
+            }
+            DataType.NEXT_FLIGHTS.id -> {
+                darkModeHelper.setButtonColors(darkMode, btn_next_flights, btn_rockets, btn_events)
+                populateAdapter(boxStore.boxFor<Flight>().all)
+            }
+            DataType.PAST_EVENTS.id -> {
+                darkModeHelper.setButtonColors(darkMode, btn_events, btn_rockets, btn_next_flights)
+                populateAdapter(boxStore.boxFor<Event>().all)
+            }
         }
     }
     //endregion
@@ -114,6 +124,7 @@ class MainActivity : AppCompatActivity() {
 
         btn_rockets.setOnClickListener {
             currentDataType = DataType.ROCKETS.id
+            darkModeHelper.setButtonColors(darkMode, btn_rockets, btn_next_flights, btn_events)
             if (rocketBox.all == null || rocketBox.all.isEmpty()) {
                 downloadAndSaveData(rocketVm)
             } else {
@@ -123,6 +134,7 @@ class MainActivity : AppCompatActivity() {
 
         btn_next_flights.setOnClickListener {
             currentDataType = DataType.NEXT_FLIGHTS.id
+            darkModeHelper.setButtonColors(darkMode, btn_next_flights, btn_rockets, btn_events)
             if (flightBox.all == null || flightBox.all.isEmpty()) {
                 downloadAndSaveData(flightVm)
             } else {
@@ -132,6 +144,7 @@ class MainActivity : AppCompatActivity() {
 
         btn_events.setOnClickListener {
             currentDataType = DataType.PAST_EVENTS.id
+            darkModeHelper.setButtonColors(darkMode, btn_events, btn_rockets, btn_next_flights)
             if (eventBox.all == null || eventBox.all.isEmpty()) {
                 downloadAndSaveData(eventVm)
             } else {
@@ -160,19 +173,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun <T> populateAdapter(data: List<T>) {
-        rv_generic.adapter = GenericAdapter(this@MainActivity, data)
+        rv_generic.adapter = GenericAdapter(this@MainActivity, data, dialogHelper)
     }
     //endregion
 
     //region Menu
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.switch_modes_menu, menu)
-        return true
-    }
-
-    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
-        super.onPrepareOptionsMenu(menu)
-        darkModeHelper.handleIconChange(menu, darkMode)
         return true
     }
 
