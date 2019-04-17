@@ -40,6 +40,7 @@ abstract class BaseRepository<T>(@PublishedApi internal val service: SpaceXServi
 
     inline fun <reified T: Any> saveToDatabase(data: List<T>) {
         CoroutineScope(Dispatchers.IO).launch {
+            boxStore.boxFor<T>().removeAll()  // deleting and inserting data to avoid sync issues
             boxStore.boxFor<T>().put(data)
         }
     }
