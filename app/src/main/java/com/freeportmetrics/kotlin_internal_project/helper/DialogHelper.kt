@@ -27,7 +27,7 @@ class DialogHelper(private val context: Context) {
         }
     }
 
-    private fun showDialog(moveToWebsite: () -> Unit) {
+    private fun showDialog(completion: () -> Unit) {
         val builder =
             AlertDialog.Builder(context)  // possible change to MaterialAlertDialogBuilder when it comes out of alpha
         val customDialog = (context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater).inflate(
@@ -43,7 +43,7 @@ class DialogHelper(private val context: Context) {
                 context.getSharedPreferences(PREF_DIALOG, Context.MODE_PRIVATE).edit {
                     putInt(PREF_KEY_DIALOG_BUTTON, which)
                 }
-                moveToWebsite()
+                completion()
             }
             setNegativeButton(context.resources.getString(R.string.dialog_btn_negative)) { dialog, which ->
                 context.getSharedPreferences(PREF_DIALOG, Context.MODE_PRIVATE).edit {
