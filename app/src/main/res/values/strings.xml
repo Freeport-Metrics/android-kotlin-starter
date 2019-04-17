@@ -21,4 +21,11 @@
     <string name="toast_no_link">Couldn\'t find more info</string>
     <string name="toast_no_campaign">Couldn\'t find link to campaign yet</string>
     <string name="toast_no_article">Couldn\'t find link to article</string>
+
+    <!-- Dialogs -->
+    <string name="dialog_title">Go to external page?</string>
+    <string name="dialog_message">This site will contain more details about the item.</string>
+    <string name="dialog_checkbox">Don\'t ask again</string>
+    <string name="dialog_btn_positive">OK</string>
+    <string name="dialog_btn_negative">Cancel</string>
 </resources>

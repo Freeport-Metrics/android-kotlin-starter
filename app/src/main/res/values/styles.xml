@@ -81,4 +81,13 @@
         <item name="android:layout_marginTop">@dimen/margin_tiny</item>
     </style>
 
+    <style name="Dialog">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="Dialog.Layout">
+        <item name="android:orientation">vertical</item>
+        <item name="android:padding">@dimen/margin_small</item>
+    </style>
 </resources>

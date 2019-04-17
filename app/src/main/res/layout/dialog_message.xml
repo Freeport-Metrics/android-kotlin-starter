@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              style="@style/Dialog.Layout">
+
+    <CheckBox
+            android:id="@+id/checkBox"
+            style="@style/Dialog"
+            android:text="@string/dialog_checkbox"/>
+
+</LinearLayout>

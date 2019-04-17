@@ -2,6 +2,7 @@ package com.freeportmetrics.kotlin_internal_project.di
 
 import com.freeportmetrics.kotlin_internal_project.database.ObjectBox
 import com.freeportmetrics.kotlin_internal_project.helper.DarkModeHelper
+import com.freeportmetrics.kotlin_internal_project.helper.DialogHelper
 import com.freeportmetrics.kotlin_internal_project.repository.EventRepository
 import com.freeportmetrics.kotlin_internal_project.repository.FlightRepository
 import com.freeportmetrics.kotlin_internal_project.repository.RocketRepository
@@ -15,6 +16,7 @@ import org.koin.dsl.module
 
 val helperModule = module {
     single { DarkModeHelper(androidContext()) }
+    single { DialogHelper(androidContext()) }
 }
 
 val networkModule = module {

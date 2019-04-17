@@ -43,6 +43,7 @@ class MainActivity : AppCompatActivity() {
 
     private val boxStore: BoxStore by inject()
     private val darkModeHelper: DarkModeHelper by inject()
+    private val dialogHelper: DialogHelper by inject()
     private val rocketVm: RocketViewModel by viewModel()
     private val flightVm: FlightViewModel by viewModel()
     private val eventVm: EventViewModel by viewModel()
@@ -172,7 +173,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun <T> populateAdapter(data: List<T>) {
-        rv_generic.adapter = GenericAdapter(this@MainActivity, data)
+        rv_generic.adapter = GenericAdapter(this@MainActivity, data, dialogHelper)
     }
     //endregion
 
