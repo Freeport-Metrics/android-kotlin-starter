@@ -1,7 +1,5 @@
 # **Android Kotlin starter project**
 
----
-
 ### **Purpose**
 To show possibilities and good practices using Kotlin language.
 
