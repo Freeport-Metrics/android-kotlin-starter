@@ -1,4 +1,4 @@
-# **Android Kotlin internal project**
+# **Android Kotlin starter project**
 
 ---
 
