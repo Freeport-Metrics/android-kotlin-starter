@@ -3,6 +3,7 @@ package com.freeportmetrics.kotlin_internal_project.helper
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
+import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.edit
 import com.freeportmetrics.kotlin_internal_project.R
@@ -18,10 +19,9 @@ class DialogHelper(private val context: Context) {
     private val sharedPrefs = context.getSharedPreferences(PREF_DIALOG, Context.MODE_PRIVATE)
 
     fun handleCheckBox(intent: Intent) {
-        if (sharedPrefs.getBoolean(PREF_KEY_DIALOG_DONT_ASK_AGAIN, false)) {
-            if (sharedPrefs.getInt(PREF_KEY_DIALOG_BUTTON, BUTTON_DEFAULT_ID) == BUTTON_POSITIVE_ID) {
-                context.startActivity(intent)
-            }
+        if (sharedPrefs.getBoolean(PREF_KEY_DIALOG_DONT_ASK_AGAIN, false) &&
+            sharedPrefs.getInt(PREF_KEY_DIALOG_BUTTON, BUTTON_DEFAULT_ID) == BUTTON_POSITIVE_ID) {
+            context.startActivity(intent)
         } else {
             showDialog { context.startActivity(intent) }
         }
@@ -52,11 +52,17 @@ class DialogHelper(private val context: Context) {
                 dialog.dismiss()
             }
             customDialog.checkBox.setOnClickListener {
-                context.getSharedPreferences(PREF_DIALOG, Context.MODE_PRIVATE).edit {
-                    putBoolean(PREF_KEY_DIALOG_DONT_ASK_AGAIN, customDialog.checkBox.isChecked)
-                }
+                saveCurrentCheckBoxState(customDialog)
             }
             show()
+        }
+
+        saveCurrentCheckBoxState(customDialog)
+    }
+
+    private fun saveCurrentCheckBoxState(customDialog: View) {
+        context.getSharedPreferences(PREF_DIALOG, Context.MODE_PRIVATE).edit {
+            putBoolean(PREF_KEY_DIALOG_DONT_ASK_AGAIN, customDialog.checkBox.isChecked)
         }
     }
 }
